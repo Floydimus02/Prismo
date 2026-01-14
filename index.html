@@ -1,817 +1,801 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en-GB">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floydimus</title>
+    <style>
+        /* COLOUR PALETTE
+           Text: #1a1a1a (Soft Black)
+           Background: #ffffff (White)
+           Links: #0000ee (Classic Blue)
+           Active/Hover: #00008b (Dark Navy)
+        */
+
+        html, body {
+            height: 100%; 
+            scroll-behavior: smooth;
+            font-size: 18px;
+        }
+
+        body {
+            font-family: "Courier New", Courier, monospace;
+            line-height: 1.65;
+            color: #1a1a1a;
+            background-color: #ffffff;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 40px 20px 0 20px;
+            flex: 1 0 auto; 
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        header {
+            margin-bottom: 2.2em;
+        }
+
+        h1, .sub-header, nav, footer {
+            font-family: "Courier New", Courier, monospace;
+            font-weight: normal;
+        }
+
+        h1 { 
+            font-size: 2.2em; 
+            margin-bottom: 0; 
+            margin-top: 0;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .sub-header {
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 1.2em;
+            display: block;
+            text-transform: lowercase;
+        }
+
+        p { margin-bottom: 1.1em; font-size: 1em; }
+
+        a { 
+            color: #0000ee; 
+            text-decoration: underline; 
+            transition: color 0.2s ease-in-out; 
+            cursor: pointer;
+        }
+        
+        a:hover { 
+            color: #00008b; 
+            background-color: transparent; 
+            text-decoration: none; 
+        }
+
+        nav { 
+            margin-bottom: 0; 
+            font-size: 1em; 
+            padding-bottom: 4px;
+            white-space: nowrap; 
+            overflow-x: auto;    
+            -webkit-overflow-scrolling: touch; 
+            scrollbar-width: none; 
+        }
+        
+        nav::-webkit-scrollbar {
+            display: none; 
+        }
+        
+        nav a { 
+            text-decoration: none; 
+            margin-right: 20px; 
+            cursor: pointer;
+            color: #0000ee;
+            display: inline-block;
+        }
+        
+        nav a:hover {
+            color: #00008b;
+        }
+
+        nav a.active {
+            color: #1a1a1a;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .tab-content {
+            display: none;
+            padding-top: 0; 
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        ul.index-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 1em 0;
+        }
+        ul.index-list li {
+            margin-bottom: 14px;
+            display: flex;
+            align-items: baseline;
+        }
+        .date {
+            font-size: 0.85em;
+            color: #666;
+            width: 120px;
+            flex-shrink: 0;
+        }
+
+        .version-history {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 4px;
+            display: block;
+        }
+
+        ul.now-list, ul.setup-list, ul.method-list {
+            list-style-type: '- ';
+            padding-left: 20px;
+            margin-bottom: 1.1em;
+        }
+        ul.now-list li, ul.setup-list li, ul.method-list li {
+            margin-bottom: 10px;
+        }
+
+        dl.faq-list {
+            margin: 0.5em 0;
+        }
+        dl.faq-list dt {
+            font-weight: normal; 
+            margin-top: 2.2em; 
+            color: #1a1a1a;
+        }
+        dl.faq-list dt:first-child {
+            margin-top: 0.5em;
+        }
+        dl.faq-list dd {
+            margin-left: 0;
+            margin-bottom: 1.1em;
+            color: #444;
+            border-left: 2px solid #eee;
+            padding-left: 15px;
+            font-style: italic;
+        }
+
+        .email-text {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            font-weight: normal;
+            border-bottom: 1px solid #eee;
+        }
+
+        h3 {
+            font-size: 1.1em;
+            margin-top: 1.8em;
+            margin-bottom: 0.6em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .code-snippet {
+            background: #f9f9f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: Consolas, "Liberation Mono", Courier, monospace;
+            font-size: 0.9em;
+        }
+
+        .code-block {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-left: 3px solid #0000ee;
+            font-family: Consolas, "Liberation Mono", Courier, monospace;
+            font-size: 0.85em;
+            margin: 15px 0;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .caution-box {
+            background-color: #fff9f9;
+            border-left: 4px solid #ff4d4d;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+
+        .chart-note {
+            font-size: 0.75em;
+            color: #777;
+            background: #fcfcfc;
+            border: 1px solid #f0f0f0;
+            padding: 10px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85em;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #eee;
+            padding: 8px;
+            text-align: left;
+        }
+        th { background-color: #f9f9f9; font-weight: bold; }
+
+        .chart-embed {
+            width: 100%;
+            height: 400px;
+            border: none;
+            margin-bottom: 30px;
+            background-color: #fff;
+        }
+
+        /* Back to Top mechanism */
+        .back-to-top {
+            display: block;
+            text-align: right;
+            font-size: 0.8em;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-family: "Courier New", Courier, monospace;
+        }
+        .back-to-top a {
+            text-decoration: none;
+            color: #666;
+            cursor: pointer;
+        }
+        .back-to-top a:hover {
+            background-color: transparent;
+            color: #1a1a1a;
+            text-decoration: underline;
+        }
+
+        footer {
+            flex-shrink: 0; 
+            margin-top: 2em; 
+            padding: 20px; 
+            font-size: 0.85em; 
+            color: #666;
+            text-align: center;
+            width: 100%;
+            max-width: 720px; 
+            margin-left: auto;
+            margin-right: auto;
+            border-top: 1px solid #eee; 
+            box-sizing: border-box;
+            line-height: 1.3; 
+        }
+
+        footer p {
+            margin: 6px 0; 
+        }
+
+        .copyleft { display: inline-block; transform: rotate(180deg); }
+
+        .batteries-note {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 2em;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            html { font-size: 17px; }
+            .container { padding: 30px 20px 0 20px; }
+            .date { width: 100px; }
+            .chart-embed { height: 300px; }
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en-GB"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Floydimus&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* COLOUR PALETTE</p>
-<p class="p1"><span class="Apple-converted-space">           </span>Text: #1a1a1a (Soft Black)</p>
-<p class="p1"><span class="Apple-converted-space">           </span>Background: #ffffff (White)</p>
-<p class="p1"><span class="Apple-converted-space">           </span>Links: #0000ee (Classic Blue)</p>
-<p class="p1"><span class="Apple-converted-space">           </span>Active/Hover: #00008b (Dark Navy)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>*/</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>html, body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 100%;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>scroll-behavior: smooth;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 18px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: "Courier New", Courier, monospace;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.65;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #1a1a1a;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #ffffff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>-webkit-text-size-adjust: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.container {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 720px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 40px 20px 0 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex: 1 0 auto;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>header {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 2.2em;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>h1, .sub-header, nav, footer {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: "Courier New", Courier, monospace;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: normal;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>h1 {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2.2em;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 0;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: -1px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.sub-header {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.85em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 1.2em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-transform: lowercase;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>p { margin-bottom: 1.1em; font-size: 1em; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>a {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #0000ee;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: underline;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: color 0.2s ease-in-out;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>a:hover {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #00008b;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: transparent;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: none;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>nav {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 0;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1em;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding-bottom: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>white-space: nowrap;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow-x: auto; <span class="Apple-converted-space">   </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>-webkit-overflow-scrolling: touch;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>scrollbar-width: none;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>nav::-webkit-scrollbar {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: none;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>nav a {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: none;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-right: 20px;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #0000ee;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: inline-block;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>nav a:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #00008b;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>nav a.active {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #1a1a1a;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.tab-content {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding-top: 0;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.tab-content.active {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>ul.index-list {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>list-style-type: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 1em 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ul.index-list li {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: baseline;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.date {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.85em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 120px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex-shrink: 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.version-history {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.85em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>ul.now-list, ul.setup-list, ul.method-list {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>list-style-type: '- ';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding-left: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 1.1em;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>ul.now-list li, ul.setup-list li, ul.method-list li {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>dl.faq-list {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0.5em 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>dl.faq-list dt {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: normal;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 2.2em;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #1a1a1a;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>dl.faq-list dt:first-child {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 0.5em;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>dl.faq-list dd {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-left: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 1.1em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #444;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-left: 2px solid #eee;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding-left: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-style: italic;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.email-text {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #1a1a1a;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>h2 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.5em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 1.5em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 0.5em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: normal;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 1px solid #eee;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>h3 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.1em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 1.8em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 0.6em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.code-snippet {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #f9f9f9;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 2px 6px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: Consolas, "Liberation Mono", Courier, monospace;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.9em;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.code-block {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f4f4f4;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-left: 3px solid #0000ee;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: Consolas, "Liberation Mono", Courier, monospace;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.85em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 15px 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow-x: auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>white-space: pre;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.caution-box {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #fff9f9;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-left: 4px solid #ff4d4d;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 20px 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.9em;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.chart-note {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.75em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #777;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #fcfcfc;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #f0f0f0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 15px 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-style: italic;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>table {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-collapse: collapse;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.85em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 15px 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>th, td {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #eee;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: left;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>th { background-color: #f9f9f9; font-weight: bold; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.chart-embed {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 400px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Back to Top mechanism */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.back-to-top {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: right;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.8em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: "Courier New", Courier, monospace;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.back-to-top a {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.back-to-top a:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: transparent;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #1a1a1a;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: underline;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>footer {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex-shrink: 0;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 2em;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.85em;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 720px;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-left: auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-right: auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-top: 1px solid #eee;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.3;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>footer p {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 6px 0;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.copyleft { display: inline-block; transform: rotate(180deg); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.batteries-note {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.85em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 2em;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-style: italic;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>@media (max-width: 600px) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>html { font-size: 17px; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.container { padding: 30px 20px 0 20px; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.date { width: 100px; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.chart-embed { height: 300px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;header&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1&gt;Floydimus&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="sub-header"&gt;audiophile // open-source advocate // space enthusiast&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;nav id="main-nav"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a onclick="showTab('about')" id="nav-about" class="active"&gt;About&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a onclick="showTab('life-work')" id="nav-life-work"&gt;Life &amp; Work&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a onclick="showTab('side-quests')" id="nav-side-quests"&gt;Side Quests&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a onclick="showTab('faqs')" id="nav-faqs"&gt;FAQs&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;a onclick="showTab('contact')" id="nav-contact"&gt;Contact&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;main&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- ABOUT SECTION --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="about" class="tab-content active"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>Greetings! I am Floydimus, cruising with curiosity and a heart full of joy. Thank you for dropping by.</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>I am a creator in a world of consumers—an observer, a free thinker, and a curious soul.<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>As a life-long learner, I believe that knowledge should be freely available and accessible to all; only through diversity can we truly build a better world.</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>Oddly enough, I do get emotional over fonts and colours as I have a soft spot for clean and simple design.</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- LIFE &amp; WORK SECTION --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="life-work" class="tab-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>In a parallel universe, you might find me as an anthropologist, archaeologist, sound engineer, or running a beachside burger joint playing rock and roll all day. Yet, in the present reality, I am a product leader who finds joy in solving complex problems for a living.</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>I specialise in consumer internet, metric optimisation, and building high-performing teams with a mission to solve problems that serve both the people and the planet—a goal I achieve by leveraging first principles, a customer-centric mindset, and experimentation to build and scale products from inception to maturity.</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>Beyond the screen, I am a seeker of experiences. I enjoy exploring the world, listening to the sound of water, attending concerts (I’m a distorted guitar fan) and art events. Conversations about technology, time travel, history, or space excite me.</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>For &lt;a href="https://sivers.org/nowff" target="_blank"&gt;now&lt;/a&gt;, I am:</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="now-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Building a memorable life with my partner.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Grooming a high-performing team of product managers as a product head in entertainment tech.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Supporting &lt;a href="https://en.wikipedia.org/wiki/Free_software_movement" target="_blank"&gt;free software&lt;/a&gt; and &lt;a href="https://en.wikipedia.org/wiki/Net_neutrality" target="_blank"&gt;net neutrality&lt;/a&gt; movements.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- SIDE QUESTS SECTION --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="side-quests" class="tab-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="index-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="date"&gt;Dec 2025&lt;/span&gt;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;a onclick="showTab('host-project-v3')" style="cursor:pointer"&gt;Host - Block the bullshit web [V3.0]&lt;/a&gt; — Block advertisements and trackers across network via Oracle cloud using Pi-Hole &amp; OpenVPN, for free.</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="version-history"&gt;Prev: &lt;a onclick="showTab('host-project-v2')" style="cursor:pointer"&gt;V2.0&lt;/a&gt;, &lt;a onclick="showTab('host-project-v1')" style="cursor:pointer"&gt;V1.0&lt;/a&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;span class="date"&gt;Jan 2024&lt;/span&gt; &lt;span&gt;&lt;a onclick="showTab('rhythm-stats')" style="cursor:pointer"&gt;Rhythm &amp; Stats&lt;/a&gt; — Mapping my live events DNA via gigs and gigabytes.&lt;/span&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;span class="date"&gt;May 2021&lt;/span&gt; &lt;span&gt;&lt;a href="https://gitlab.com/Floydimus/sound-of-atoms" target="_blank"&gt;Sound of Atoms&lt;/a&gt; — Jump into the world of unknown and explore music [Abandonware].&lt;/span&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;span class="date"&gt;Jun 2020&lt;/span&gt; &lt;span&gt;&lt;a href="https://www.tap.prismo.net/backstage" target="_blank"&gt;TAP - The Art Project&lt;/a&gt; — A platform to find and enjoy away from the keyboard (AFK) life experiences.&lt;/span&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;span class="date"&gt;Mar 2020&lt;/span&gt; &lt;span&gt;&lt;a href="https://www.covid19india.org/volunteers" target="_blank"&gt;covid19india.org&lt;/a&gt; — A volunteer driven, crowd-sourced tracker for COVID-19 cases in India.&lt;/span&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;span class="date"&gt;Sep 2019&lt;/span&gt; &lt;span&gt;&lt;a href="https://sites.google.com/view/productx/home" target="_blank"&gt;ProductX.io&lt;/a&gt; — A free knowledge repository to enter and grow in the field of product management.&lt;/span&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;span class="date"&gt;May 2019&lt;/span&gt; &lt;span&gt;&lt;a href="https://github.com/Floydimus02/hazmat" target="_blank"&gt;Hazmat&lt;/a&gt; — An open source browser extension to filter unwanted subreddits from r/Popular.&lt;/span&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;span class="date"&gt;Jan 2018&lt;/span&gt; &lt;span&gt;&lt;a href="https://gitlab.com/Floydimus/ThankYouWikipedia" target="_blank"&gt;#ThankYouWikipedia&lt;/a&gt; — An open source Twitter bot periodically tweeting a random Wikipedia article.&lt;/span&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="batteries-note"&gt;Batteries included.&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- RHYTHM &amp; STATS SECTION --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="rhythm-stats" class="tab-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a onclick="showTab('side-quests')"&gt;← Back to Side Quests&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2&gt;Rhythm &amp; Stats&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;&lt;em&gt;Mapping my live events DNA via gigs and gigabytes.&lt;/em&gt;&lt;/p&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="chart-note"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>Note: The following data is single dimensional.</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="charts-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=740818264&amp;resourcekey"&gt;&lt;/iframe&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=2078407554&amp;resourcekey"&gt;&lt;/iframe&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=1392209991&amp;resourcekey"&gt;&lt;/iframe&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=1360952534&amp;resourcekey"&gt;&lt;/iframe&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=1163257682&amp;resourcekey"&gt;&lt;/iframe&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=1163257682&amp;resourcekey"&gt;&lt;/iframe&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=242829297&amp;resourcekey"&gt;&lt;/iframe&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=1799739953&amp;resourcekey"&gt;&lt;/iframe&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=457378478&amp;resourcekey"&gt;&lt;/iframe&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=154053102&amp;resourcekey"&gt;&lt;/iframe&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=1819939499&amp;resourcekey"&gt;&lt;/iframe&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=342840091&amp;resourcekey"&gt;&lt;/iframe&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=562360046&amp;resourcekey"&gt;&lt;/iframe&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                    </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=692608756&amp;resourcekey"&gt;&lt;/iframe&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="back-to-top"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a onclick="window.scrollTo(0,0)"&gt;↑ TOP&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- HOST PROJECT V3.0 DETAILS --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="host-project-v3" class="tab-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a onclick="showTab('side-quests')"&gt;← Back to Side Quests&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2&gt;Host - Block the bullshit web [V3.0]&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Advertisements, tracking scripts and other countless lines of code downloaded on to your machine to spam and monitor you whenever you connect to the internet.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;This version leverages Oracle Cloud Infrastructure to host a Pi-Hole instance connected via OpenVPN, providing network-wide blocking for all your connected devices.&lt;/p&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;&lt;em&gt;Note: This guide is written for Ubuntu OS (updated Dec 2025).&lt;/em&gt;&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;Phase 1: Oracle Cloud Infrastructure Setup&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Initial setup of the virtual machine and network configuration within the Oracle Cloud console.&lt;/p&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;1.1 Create a Virtual Cloud Network (VCN)&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="setup-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Log in to your Oracle Cloud account.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Navigate to &lt;strong&gt;Networking → Virtual Cloud Networks&lt;/strong&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Click &lt;strong&gt;Start VCN Wizard&lt;/strong&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Select &lt;strong&gt;VCN with Internet Connectivity&lt;/strong&gt; and click Start VCN Wizard again.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Give your VCN a name (e.g., &lt;span class="code-snippet"&gt;vpn-vcn&lt;/span&gt;). Click Next, then Create.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;1.2 Create a Compute Instance&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="setup-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Navigate to &lt;strong&gt;Compute → Instances&lt;/strong&gt; and click Create Instance.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Name: &lt;span class="code-snippet"&gt;vpn-server&lt;/span&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Image and shape: Click Edit.</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li&gt;Image: Select Canonical Ubuntu (latest LTS version).&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li&gt;Shape: Select Ampere series and the &lt;span class="code-snippet"&gt;VM.Standard.A1.Flex&lt;/span&gt; shape.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Networking: Ensure your new VCN (&lt;span class="code-snippet"&gt;vpn-vcn&lt;/span&gt;) and the public subnet are selected.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Add SSH keys: Choose &lt;strong&gt;Generate a key pair for me&lt;/strong&gt; and save the private key.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Click Create.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;1.3 Configure Network Security Rules&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Navigate to your VCN → Security Lists → Default Security List. Add the following Ingress Rules:&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th&gt;Source CIDR&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th&gt;IP Protocol&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th&gt;Port Range&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th&gt;Description&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr&gt;&lt;td&gt;0.0.0.0/0&lt;/td&gt;&lt;td&gt;UDP&lt;/td&gt;&lt;td&gt;1194&lt;/td&gt;&lt;td&gt;OpenVPN&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr&gt;&lt;td&gt;0.0.0.0/0&lt;/td&gt;&lt;td&gt;TCP&lt;/td&gt;&lt;td&gt;80&lt;/td&gt;&lt;td&gt;Pi-Hole Web UI (HTTP)&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr&gt;&lt;td&gt;0.0.0.0/0&lt;/td&gt;&lt;td&gt;TCP&lt;/td&gt;&lt;td&gt;443&lt;/td&gt;&lt;td&gt;Pi-Hole Web UI (HTTPS)&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr&gt;&lt;td&gt;0.0.0.0/0&lt;/td&gt;&lt;td&gt;UDP&lt;/td&gt;&lt;td&gt;53&lt;/td&gt;&lt;td&gt;Pi-Hole DNS (UDP)&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr&gt;&lt;td&gt;0.0.0.0/0&lt;/td&gt;&lt;td&gt;TCP&lt;/td&gt;&lt;td&gt;53&lt;/td&gt;&lt;td&gt;Pi-Hole DNS (TCP)&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/table&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;Phase 2: Software Installation &amp; Configuration&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Connect to your server and install the necessary software.&lt;/p&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;2.1 Connect &amp; Elevate&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Connect to your server using the public IP and the private key you downloaded.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="code-block"&gt;chmod 400 /path/to/your/private-key.key</p>
-<p class="p1">ssh -i /path/to/your/private-key.key ubuntu@&amp;lt;YOUR_PUBLIC_IP&amp;gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Immediately after connecting, switch to the root user.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="code-block"&gt;sudo su - root&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;2.2 System Update&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Update all system packages.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="code-block"&gt;apt update &amp;&amp; apt upgrade -y&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;2.3 Configure OS Firewall (UFW)&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Configure the server's local firewall to mirror the OCI security list.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="code-block"&gt;apt install -y ufw</p>
-<p class="p1">ufw allow 22/tcp comment 'SSH Access'</p>
-<p class="p1">ufw allow 80/tcp comment 'Pi-Hole Web UI HTTP'</p>
-<p class="p1">ufw allow 443/tcp comment 'Pi-Hole Web UI HTTPS'</p>
-<p class="p1">ufw allow 1194/udp comment 'OpenVPN UDP'</p>
-<p class="p1">ufw allow 53/tcp comment 'Pi-Hole DNS TCP'</p>
-<p class="p1">ufw allow 53/udp comment 'Pi-Hole DNS UDP'</p>
-<p class="p1">ufw --force enable&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;2.4 Install Pi-Hole&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Run the official Pi-Hole installation script.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="code-block"&gt;curl -sSL https://install.pi-hole.net | bash&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;&lt;strong&gt;Installer Prompts Summary:&lt;/strong&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="setup-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Upstream DNS: Choose any provider (e.g., Google).&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Block Lists: Accept the default.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Protocols: Select both IPv4 and IPv6.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Accept defaults for the rest. Save the admin password shown at the end.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Set a new, strong admin password immediately.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="code-block"&gt;pihole setpassword&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;2.5 Configure Pi-Hole for VPN&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;This setting is crucial for allowing VPN clients to use Pi-Hole as their DNS server.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="setup-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Log in to the Pi-Hole web admin UI at &lt;span class="code-snippet"&gt;http://&amp;lt;YOUR_PUBLIC_IP&amp;gt;/admin&lt;/span&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Go to &lt;strong&gt;Settings → DNS&lt;/strong&gt; tab.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Under Interface settings, select &lt;strong&gt;Permit all origins&lt;/strong&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Click Save.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;2.6 Configure Custom Blocklists&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Manually add the following lists in the Pi-Hole web interface (Adlists page).&lt;/p&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;&lt;strong&gt;Lists to Enable&lt;/strong&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="setup-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;URL: &lt;span class="code-snippet"&gt;https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn-social/hosts&lt;/span&gt;&lt;br&gt;Comment: Steven Black | Unified Host&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;URL: &lt;span class="code-snippet"&gt;https://big.oisd.nl&lt;/span&gt;&lt;br&gt;Comment: OISD | Big&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;URL: &lt;span class="code-snippet"&gt;https://nsfw.oisd.nl&lt;/span&gt;&lt;br&gt;Comment: OISD | Porn&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;&lt;strong&gt;List to Disable (For potential whitelisting)&lt;/strong&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="setup-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;URL: &lt;span class="code-snippet"&gt;https://raw.githubusercontent.com/LukeSmithxyz/etc/master/ips&lt;/span&gt;&lt;br&gt;Comment: Luke Smith | Master IPs&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;After adding all lists, navigate to &lt;strong&gt;Tools → Update Gravity&lt;/strong&gt; to apply the new blocklists.&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;Phase 3: OpenVPN Installation &amp; Final Integration&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Install OpenVPN and configure it to use Pi-Hole for DNS.&lt;/p&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;3.1 Install OpenVPN&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Download and run the helper script on your server.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="code-block"&gt;curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh</p>
-<p class="p1">chmod +x openvpn-install.sh</p>
-<p class="p1">./openvpn-install.sh&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;&lt;strong&gt;Crucial Installer Selections:&lt;/strong&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="setup-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Protocol: Choose &lt;strong&gt;UDP&lt;/strong&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;DNS (CRITICAL): Select &lt;strong&gt;Custom DNS&lt;/strong&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Custom DNS IP: Enter your server's &lt;strong&gt;Private IP Address&lt;/strong&gt; (e.g., &lt;span class="code-snippet"&gt;10.0.0.X&lt;/span&gt;).&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Client Name: Choose a name (e.g., &lt;span class="code-snippet"&gt;my-phone&lt;/span&gt;).&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;3.2 Enable IP Forwarding&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Edit &lt;span class="code-snippet"&gt;/etc/sysctl.conf&lt;/span&gt; to enable IP forwarding permanently.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="code-block"&gt;nano /etc/sysctl.conf&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Uncomment the line &lt;span class="code-snippet"&gt;#net.ipv4.ip_forward=1&lt;/span&gt; by removing the &lt;span class="code-snippet"&gt;#&lt;/span&gt;. Save and exit. Then apply:&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="code-block"&gt;sysctl -p&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;3.3 Move Client Config File&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Move the generated &lt;span class="code-snippet"&gt;.ovpn&lt;/span&gt; file to the &lt;span class="code-snippet"&gt;ubuntu&lt;/span&gt; user's home directory for easy download.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="code-block"&gt;# Replace &amp;lt;CLIENT_NAME&amp;gt; with the name you chose in step 3.1</p>
-<p class="p1">mv /root/&amp;lt;CLIENT_NAME&amp;gt;.ovpn /home/ubuntu/&amp;lt;CLIENT_NAME&amp;gt;.ovpn&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;3.4 Download Client Config&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;On your local machine's terminal, run this command to download the file:&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="code-block"&gt;# Replace placeholders, the dot (.) downloads it to the current directory</p>
-<p class="p1">scp -i /path/to/your/private-key.key ubuntu@&amp;lt;YOUR_PUBLIC_IP&amp;gt;:/home/ubuntu/&amp;lt;CLIENT_NAME&amp;gt;.ovpn .&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;3.5 Test and Verify&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Import the downloaded &lt;span class="code-snippet"&gt;.ovpn&lt;/span&gt; file into your OpenVPN client (like OpenVPN Connect or Tunnelblick). Connect to the VPN and confirm that ads are being blocked by checking the Pi-Hole dashboard for query logs from your client's IP.&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;3.6 Auto-Connect on Ubuntu (Optional)&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;If using an Ubuntu desktop, run this command to manage network connections:&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="code-block"&gt;nm-connection-editor&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Import your &lt;span class="code-snippet"&gt;.ovpn&lt;/span&gt; file via the editor, then check the General tab and select 'Automatically connect to this network when it is available'.&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;Phase 4: Maintenance and Updates&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Regularly update your server for security and performance.&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;4.1 Comprehensive System and App Update&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Run this command as root to update the OS and Pi-Hole simultaneously.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="code-block"&gt;apt update &amp;&amp; apt upgrade -y &amp;&amp; apt dist-upgrade -y &amp;&amp; pihole -up&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;4.2 Update Pi-Hole Ad Lists (Gravity)&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Run this to fetch the latest version of your blocklists, ensuring up-to-date ad protection.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="code-block"&gt;pihole -g&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;4.3 Restart Server&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Reboot the server after major updates or configuration changes.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="code-block"&gt;reboot&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="back-to-top"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a onclick="window.scrollTo(0,0)"&gt;↑ TOP&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- HOST PROJECT V2.0 FULL DETAILS --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="host-project-v2" class="tab-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a onclick="showTab('side-quests')"&gt;← Back to Side Quests&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2&gt;Host - Block the bullshit web [V2.0]&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Block advertisements, tracking scripts, and unwanted content across your devices by routing traffic through a Pi-Hole DNS resolver tunnelled via OpenVPN. This setup is hosted on the Oracle Cloud free tier.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;&lt;em&gt;Note: This guide is written for Ubuntu OS (updated Oct 2023).&lt;/em&gt;&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="caution-box"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;strong&gt;Caution:&lt;/strong&gt; We will enable root access for convenience. If you are familiar with SSH, standard security practices are recommended over this approach. Proceed with caution.</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;1. Instance Setup&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="setup-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Create an &lt;a href="https://www.oracle.com/cloud/free" target="_blank"&gt;Oracle Cloud Free Tier&lt;/a&gt; account.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Setup an instance and switch the OS from Oracle Linux to &lt;strong&gt;Ubuntu&lt;/strong&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Save the generated public and private keys carefully. Note your Public and Private IPs.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Log in to Shell and switch to root: &lt;span class="code-snippet"&gt;sudo su - root&lt;/span&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Update your root password: &lt;span class="code-snippet"&gt;passwd root&lt;/span&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Install Nano: &lt;span class="code-snippet"&gt;sudo apt install nano -y&lt;/span&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;strong&gt;Network Configuration:&lt;/strong&gt; In the Oracle GUI, navigate to &lt;em&gt;Networking &gt; Virtual Cloud Networks &gt; vcn-XXXX &gt; Security Lists &gt; Default Security List&lt;/em&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Add an &lt;strong&gt;Ingress Rule&lt;/strong&gt;: Source CIDR &lt;span class="code-snippet"&gt;0.0.0.0/0&lt;/span&gt;, Protocol &lt;strong&gt;UDP&lt;/strong&gt;, Destination Port &lt;strong&gt;1194&lt;/strong&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;2. Software Installation&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Connect to your server locally using your private key: &lt;span class="code-snippet"&gt;ssh -i keyfile ubuntu@PublicIP&lt;/span&gt;.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="setup-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;strong&gt;Pi-Hole:&lt;/strong&gt; Use the &lt;a href="https://github.com/pi-hole/pi-hole/#one-step-automated-install" target="_blank"&gt;one-step automated install&lt;/a&gt;. Select interface &lt;span class="code-snippet"&gt;tun0&lt;/span&gt;. Change password via &lt;span class="code-snippet"&gt;sudo pihole -a -p&lt;/span&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;strong&gt;Blocklists:&lt;/strong&gt; I recommend the &lt;a href="https://oisd.nl/" target="_blank"&gt;OISD blocklist&lt;/a&gt; for comprehensive coverage.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;strong&gt;OpenVPN:&lt;/strong&gt; Use the &lt;a href="https://github.com/angristan/openvpn-install" target="_blank"&gt;Angristan script&lt;/a&gt;. Select Port &lt;strong&gt;1194&lt;/strong&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;3. Security &amp; DNS Routing&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="setup-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Edit SSH config: &lt;span class="code-snippet"&gt;sudo nano /etc/ssh/sshd_config&lt;/span&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Set &lt;span class="code-snippet"&gt;PasswordAuthentication yes&lt;/span&gt; and &lt;span class="code-snippet"&gt;PermitRootLogin yes&lt;/span&gt; (at your own risk).&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Point VPN to Pi-Hole: &lt;span class="code-snippet"&gt;sudo nano /etc/openvpn/server.conf&lt;/span&gt; and update to &lt;span class="code-snippet"&gt;push "dhcp-option DNS [Pi-Hole Private IP]"&lt;/span&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Restart SSH and the VM: &lt;span class="code-snippet"&gt;sudo systemctl restart sshd&lt;/span&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;4. Managing Profiles &amp; Access&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="setup-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;strong&gt;Profiles:&lt;/strong&gt; Add/revoke certificates via &lt;span class="code-snippet"&gt;./openvpn-install.sh&lt;/span&gt;. Copy to home directory to download: &lt;span class="code-snippet"&gt;cp /root/profile.ovpn /home&lt;/span&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;strong&gt;Dashboard:&lt;/strong&gt; Connect to the VPN, then navigate to &lt;span class="code-snippet"&gt;https://[Private IP]/admin&lt;/span&gt; in your browser.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;strong&gt;Maintenance:&lt;/strong&gt; Periodically run &lt;span class="code-snippet"&gt;apt update &amp;&amp; apt upgrade&lt;/span&gt;, &lt;span class="code-snippet"&gt;pihole -up&lt;/span&gt;, and &lt;span class="code-snippet"&gt;pihole -g&lt;/span&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;&lt;a href="https://www.reddit.com/r/pihole/comments/oooyaj/update_perf_stats_pihole_openvpn_on_oracle_cloud/" target="_blank"&gt;View Performance Stats&lt;/a&gt;&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="image-placeholder"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;strong&gt;[Feedback Image Placeholder]&lt;/strong&gt;&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;small&gt;User feedback on Host V2.0 performance and reliability.&lt;/small&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;Credits&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Thanks to the folks at &lt;a href="https://pi-hole.net/" target="_blank"&gt;Pi-Hole&lt;/a&gt;, &lt;a href="https://openvpn.net/" target="_blank"&gt;OpenVPN&lt;/a&gt;, and &lt;a href="https://github.com/angristan" target="_blank"&gt;Angristan&lt;/a&gt;. Shout-out to the &lt;a href="https://www.reddit.com/r/pihole/comments/omtaf3/pihole_openvpn_on_oracle_cloud_always_free_tier/" target="_blank"&gt;r/pihole community&lt;/a&gt; and &lt;a href="https://gitlab.com/karliskavacis" target="_blank"&gt;Karlis K&lt;/a&gt; 🇱🇻.&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="back-to-top"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a onclick="window.scrollTo(0,0)"&gt;↑ TOP&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- HOST PROJECT V1.0 FULL DETAILS --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="host-project-v1" class="tab-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a onclick="showTab('side-quests')"&gt;← Back to Side Quests&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2&gt;Host - Block the bullshit web [V1.0]&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Advertisements, tracking scripts, and malicious code are constantly monitoring you. Host is a simple, effective way to block this noise—including trackers and pornographic content—using a modified Windows hosts file.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;This project was inspired by the &lt;a href="https://pxlnv.com/blog/bullshit-web/" target="_blank"&gt;"Bullshit Web"&lt;/a&gt; concept. I've also included a quick toggle feature specifically for Windows users.&lt;/p&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;&lt;em&gt;Note: This guide is written for Windows 10 OS (updated Jun 2020).&lt;/em&gt;&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;1. Prerequisites &amp; Resources&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;You will need two main components to get started:&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="setup-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;strong&gt;Unified Hosts File:&lt;/strong&gt; A consolidated list of reputable blocking sources with duplicates removed. &lt;a href="https://drive.google.com/file/d/14VHRlwHhfUvGLKUDpa9mBbU1hIe9Ros8/view?usp=sharing" target="_blank"&gt;Download here&lt;/a&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;strong&gt;Toggle Script (hosts.bat):&lt;/strong&gt; A batch script to enable/disable the hosts file with a single click. &lt;a href="https://drive.google.com/file/d/1iTQsHKjxomYp_TH0fTNAZPdtREznQz48/view?usp=sharing" target="_blank"&gt;Download here&lt;/a&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;2. The Setup&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Follow these steps to configure your system for efficient blocking:&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="setup-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;strong&gt;Installation:&lt;/strong&gt; Place the downloaded &lt;span class="code-snippet"&gt;hosts&lt;/span&gt; file in &lt;span class="code-snippet"&gt;C:\Windows\System32\drivers\etc&lt;/span&gt;. Alternatively, you can fetch a specific variant from &lt;a href="https://github.com/StevenBlack/hosts/" target="_blank"&gt;Steven Black’s GitHub repository&lt;/a&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;strong&gt;Privilege Escalation:&lt;/strong&gt; Navigate to &lt;span class="code-snippet"&gt;HKEY_CLASSES_ROOT\batfile\shell&lt;/span&gt; in the Registry Editor. Change the &lt;span class="code-snippet"&gt;(Default)&lt;/span&gt; value to &lt;span class="code-snippet"&gt;runas&lt;/span&gt; to ensure batch files run with admin rights.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;strong&gt;DNS Cache Opt-out:&lt;/strong&gt; Go to &lt;span class="code-snippet"&gt;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Dnscache&lt;/span&gt; and set the &lt;span class="code-snippet"&gt;Start&lt;/span&gt; value to &lt;span class="code-snippet"&gt;4&lt;/span&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;&lt;strong&gt;Service Check:&lt;/strong&gt; Open &lt;span class="code-snippet"&gt;services.msc&lt;/span&gt; and ensure the &lt;strong&gt;DNS Client&lt;/strong&gt; is set to &lt;strong&gt;Disabled&lt;/strong&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;3. Efficient Usage&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Manual editing is tedious. Use one of these methods to toggle the hosts file instantly:&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;Method 1: Direct Command&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="method-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Save &lt;span class="code-snippet"&gt;hosts.bat&lt;/span&gt; in &lt;span class="code-snippet"&gt;C:\Windows\System32&lt;/span&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Trigger it anytime via &lt;span class="code-snippet"&gt;Win + R&lt;/span&gt; -&gt; type &lt;span class="code-snippet"&gt;hosts&lt;/span&gt; -&gt; &lt;span class="code-snippet"&gt;Enter&lt;/span&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;Method 2: Taskbar Shortcut&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="method-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Pin &lt;strong&gt;Command Prompt&lt;/strong&gt; to your taskbar.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Hold &lt;span class="code-snippet"&gt;SHIFT&lt;/span&gt;, right-click the icon, and select &lt;strong&gt;Properties&lt;/strong&gt;.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Change the Target to: &lt;span class="code-snippet"&gt;%windir%\system32\cmd.exe /c "path\to\your\hosts.bat"&lt;/span&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li&gt;Rename it to &lt;strong&gt;Toggle Hosts&lt;/strong&gt; for easy identification.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;Credits&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;The core logic of this project relies on the incredible work of &lt;a href="http://stevenblack.com/" target="_blank"&gt;Steven Black&lt;/a&gt; and his contributors. The toggle script methodology is credited to &lt;a href="https://www.winhelponline.com/blog/automatically-elevate-batch-file-run-administrator/" target="_blank"&gt;Ramesh Srinivasan&lt;/a&gt;.&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="back-to-top"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a onclick="window.scrollTo(0,0)"&gt;↑ TOP&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- FAQS SECTION --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="faqs" class="tab-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;dl class="faq-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dt&gt;Is Floydimus your real name?&lt;/dt&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dd&gt;No, Floydimus is my screen name aka virtual identity that I created for privacy reasons.&lt;/dd&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dt&gt;What does Floydimus mean?&lt;/dt&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dd&gt;I am huge fan of an English rock act, Pink Floyd. Fans are called Floydians and I Latinised it to Floydimus.&lt;/dd&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dt&gt;Why are you being anonymous?&lt;/dt&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dd&gt;Inspired by one of my favourite artists, &lt;a href="http://www.banksy.co.uk/" target="_blank"&gt;Banksy&lt;/a&gt;, I believe that my work should be my identity and speak on my behalf. Also, I prefer a private life.&lt;/dd&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dt&gt;I am interested in time travel, what should I do?&lt;/dt&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dd&gt;Meet me at &lt;a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank"&gt;28.06.42.12&lt;/a&gt;, last Thursday.&lt;/dd&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dt&gt;Does invention of Microwave prove the existence of God?&lt;/dt&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dd&gt;Yes, I think so. Reheating my Ramen was indeed a spiritual experience.&lt;/dd&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dt&gt;Since you are an audiophile, do you also play any musical instrument?&lt;/dt&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dd&gt;I always wanted to learn and play drums, I started with a practice pad; however, I could not build discipline due to variety of reasons.&lt;/dd&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dt&gt;As a product manager, which is your favourite product?&lt;/dt&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dd&gt;I am an Spreadsheet junkie. It's fun to try new formulas and work with a workbook all day.&lt;/dd&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dt&gt;Are you still accepting mentorship or career guidance requests?&lt;/dt&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dd&gt;No, because I believe there are smarter people than me to do so. Also, #RTFM&lt;/dd&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;dd&gt;Warrant canary.&lt;/dd&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/dl&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- CONTACT SECTION --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;section id="contact" class="tab-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>For queries, creative insults, or personalised death threats (yes, I have received them in the past) write your letters to &lt;span class="email-text"&gt;hello[at]prismo[dot]net&lt;/span&gt;.</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>If emails don't get through, try smoke signals or sending pigeons, ask them to fly east.</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/main&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Copyleft &lt;span class="copyleft"&gt;&amp;copy;&lt;/span&gt; MMXXVI Floydimus.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Best viewed &lt;i&gt;without&lt;/i&gt; Internet Explorer.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function showTab(tabId) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const contents = document.querySelectorAll('.tab-content');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>contents.forEach(content =&gt; content.classList.remove('active'));</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const navLinks = document.querySelectorAll('#main-nav a');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>navLinks.forEach(link =&gt; link.classList.remove('active'));</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Show the target section</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const targetSection = document.getElementById(tabId);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (targetSection) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>targetSection.classList.add('active');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Highlight the nav link ONLY if it's one of the main header tabs</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const navLink = document.getElementById('nav-' + tabId);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (navLink) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>navLink.classList.add('active');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else if (tabId.startsWith('host-project') || tabId === 'rhythm-stats') {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>// Keep Side Quests highlighted if in a project sub-page</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('nav-side-quests').classList.add('active');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>window.scrollTo(0, 0);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+    <div class="container">
+        <header>
+            <h1>Floydimus</h1>
+            <span class="sub-header">audiophile // open-source advocate // space enthusiast</span>
+            <nav id="main-nav">
+                <a onclick="showTab('about')" id="nav-about" class="active">About</a>
+                <a onclick="showTab('life-work')" id="nav-life-work">Life & Work</a>
+                <a onclick="showTab('side-quests')" id="nav-side-quests">Side Quests</a>
+                <a onclick="showTab('faqs')" id="nav-faqs">FAQs</a>
+                <a onclick="showTab('contact')" id="nav-contact">Contact</a>
+            </nav>
+        </header>
+
+        <main>
+            <!-- ABOUT SECTION -->
+            <section id="about" class="tab-content active">
+                <p>
+                    Greetings! I am Floydimus, cruising with curiosity and a heart full of joy. Thank you for dropping by.
+                </p>
+                <p>
+                    I am a creator in a world of consumers—an observer, a free thinker, and a curious soul. 
+                </p>
+                <p>
+                    As a life-long learner, I believe that knowledge should be freely available and accessible to all; only through diversity can we truly build a better world.
+                </p>
+                <p>
+                    Oddly enough, I do get emotional over fonts and colours as I have a soft spot for clean and simple design.
+                </p>
+            </section>
+
+            <!-- LIFE & WORK SECTION -->
+            <section id="life-work" class="tab-content">
+                <p>
+                    In a parallel universe, you might find me as an anthropologist, archaeologist, sound engineer, or running a beachside burger joint playing rock and roll all day. Yet, in the present reality, I am a product leader who finds joy in solving complex problems for a living.
+                </p>
+                <p>
+                    I specialise in consumer internet, metric optimisation, and building high-performing teams with a mission to solve problems that serve both the people and the planet—a goal I achieve by leveraging first principles, a customer-centric mindset, and experimentation to build and scale products from inception to maturity.
+                </p>
+                <p>
+                    Beyond the screen, I am a seeker of experiences. I enjoy exploring the world, listening to the sound of water, attending concerts (I’m a distorted guitar fan) and art events. Conversations about technology, time travel, history, or space excite me.
+                </p>
+
+                <p>
+                    For <a href="https://sivers.org/nowff" target="_blank">now</a>, I am:
+                </p>
+                <ul class="now-list">
+                    <li>Building a memorable life with my partner.</li>
+                    <li>Grooming a high-performing team of product managers as a product head in entertainment tech.</li>
+                    <li>Supporting <a href="https://en.wikipedia.org/wiki/Free_software_movement" target="_blank">free software</a> and <a href="https://en.wikipedia.org/wiki/Net_neutrality" target="_blank">net neutrality</a> movements.</li>
+                </ul>
+            </section>
+
+            <!-- SIDE QUESTS SECTION -->
+            <section id="side-quests" class="tab-content">
+                <ul class="index-list">
+                    <li>
+                        <span class="date">Dec 2025</span> 
+                        <span>
+                            <a onclick="showTab('host-project-v3')" style="cursor:pointer">Host - Block the bullshit web [V3.0]</a> — Block advertisements and trackers across network via Oracle cloud using Pi-Hole & OpenVPN, for free.
+                            <span class="version-history">Prev: <a onclick="showTab('host-project-v2')" style="cursor:pointer">V2.0</a>, <a onclick="showTab('host-project-v1')" style="cursor:pointer">V1.0</a></span>
+                        </span>
+                    </li>
+                    <li><span class="date">Jan 2024</span> <span><a onclick="showTab('rhythm-stats')" style="cursor:pointer">Rhythm & Stats</a> — Mapping my live events DNA via gigs and gigabytes.</span></li>
+                    <li><span class="date">May 2021</span> <span><a href="https://gitlab.com/Floydimus/sound-of-atoms" target="_blank">Sound of Atoms</a> — Jump into the world of unknown and explore music [Abandonware].</span></li>
+                    <li><span class="date">Jun 2020</span> <span><a href="https://www.tap.prismo.net/backstage" target="_blank">TAP - The Art Project</a> — A platform to find and enjoy away from the keyboard (AFK) life experiences.</span></li>
+                    <li><span class="date">Mar 2020</span> <span><a href="https://www.covid19india.org/volunteers" target="_blank">covid19india.org</a> — A volunteer driven, crowd-sourced tracker for COVID-19 cases in India.</span></li>
+                    <li><span class="date">Sep 2019</span> <span><a href="https://sites.google.com/view/productx/home" target="_blank">ProductX.io</a> — A free knowledge repository to enter and grow in the field of product management.</span></li>
+                    <li><span class="date">May 2019</span> <span><a href="https://github.com/Floydimus02/hazmat" target="_blank">Hazmat</a> — An open source browser extension to filter unwanted subreddits from r/Popular.</span></li>
+                    <li><span class="date">Jan 2018</span> <span><a href="https://gitlab.com/Floydimus/ThankYouWikipedia" target="_blank">#ThankYouWikipedia</a> — An open source Twitter bot periodically tweeting a random Wikipedia article.</span></li>
+                </ul>
+                <div class="batteries-note">Batteries included.</div>
+            </section>
+
+            <!-- RHYTHM & STATS SECTION -->
+            <section id="rhythm-stats" class="tab-content">
+                <nav>
+                    <a onclick="showTab('side-quests')">← Back to Side Quests</a>
+                </nav>
+                <h2>Rhythm & Stats</h2>
+                <p><em>Mapping my live events DNA via gigs and gigabytes.</em></p>
+                
+                <div class="chart-note">
+                    Note: The following data is single dimensional.
+                </div>
+
+                <div class="charts-container">
+                    <iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=740818264&resourcekey"></iframe>
+                    
+                    <iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=2078407554&resourcekey"></iframe>
+                    
+                    <iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=1392209991&resourcekey"></iframe>
+                    
+                    <iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=1360952534&resourcekey"></iframe>
+                    
+                    <iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=1163257682&resourcekey"></iframe>
+                    
+                    <iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=1163257682&resourcekey"></iframe>
+                    
+                    <iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=242829297&resourcekey"></iframe>
+                    
+                    <iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=1799739953&resourcekey"></iframe>
+                    
+                    <iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=457378478&resourcekey"></iframe>
+                    
+                    <iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=154053102&resourcekey"></iframe>
+                    
+                    <iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=1819939499&resourcekey"></iframe>
+                    
+                    <iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=342840091&resourcekey"></iframe>
+                    
+                    <iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=562360046&resourcekey"></iframe>
+                    
+                    <iframe class="chart-embed" src="https://docs.google.com/spreadsheets/u/0/d/e/2CAIWO3enUB6w2h6HPxv0sIHnXq5Y1BsoP8JaztbM-WLLhL7ahxau-VVzHGJcZET8DRLZfqYP87DxHqJVQnw/gviz/chartiframe?oid=692608756&resourcekey"></iframe>
+                </div>
+
+                <div class="back-to-top">
+                    <a onclick="window.scrollTo(0,0)">↑ TOP</a>
+                </div>
+            </section>
+
+            <!-- HOST PROJECT V3.0 DETAILS -->
+            <section id="host-project-v3" class="tab-content">
+                <nav>
+                    <a onclick="showTab('side-quests')">← Back to Side Quests</a>
+                </nav>
+                <h2>Host - Block the bullshit web [V3.0]</h2>
+                <p>Advertisements, tracking scripts and other countless lines of code downloaded on to your machine to spam and monitor you whenever you connect to the internet.</p>
+                <p>This version leverages Oracle Cloud Infrastructure to host a Pi-Hole instance connected via OpenVPN, providing network-wide blocking for all your connected devices.</p>
+                
+                <p><em>Note: This guide is written for Ubuntu OS (updated Dec 2025).</em></p>
+
+                <h3>Phase 1: Oracle Cloud Infrastructure Setup</h3>
+                <p>Initial setup of the virtual machine and network configuration within the Oracle Cloud console.</p>
+                
+                <strong>1.1 Create a Virtual Cloud Network (VCN)</strong>
+                <ul class="setup-list">
+                    <li>Log in to your Oracle Cloud account.</li>
+                    <li>Navigate to <strong>Networking → Virtual Cloud Networks</strong>.</li>
+                    <li>Click <strong>Start VCN Wizard</strong>.</li>
+                    <li>Select <strong>VCN with Internet Connectivity</strong> and click Start VCN Wizard again.</li>
+                    <li>Give your VCN a name (e.g., <span class="code-snippet">vpn-vcn</span>). Click Next, then Create.</li>
+                </ul>
+
+                <strong>1.2 Create a Compute Instance</strong>
+                <ul class="setup-list">
+                    <li>Navigate to <strong>Compute → Instances</strong> and click Create Instance.</li>
+                    <li>Name: <span class="code-snippet">vpn-server</span>.</li>
+                    <li>Image and shape: Click Edit.
+                        <ul>
+                            <li>Image: Select Canonical Ubuntu (latest LTS version).</li>
+                            <li>Shape: Select Ampere series and the <span class="code-snippet">VM.Standard.A1.Flex</span> shape.</li>
+                        </ul>
+                    </li>
+                    <li>Networking: Ensure your new VCN (<span class="code-snippet">vpn-vcn</span>) and the public subnet are selected.</li>
+                    <li>Add SSH keys: Choose <strong>Generate a key pair for me</strong> and save the private key.</li>
+                    <li>Click Create.</li>
+                </ul>
+
+                <strong>1.3 Configure Network Security Rules</strong>
+                <p>Navigate to your VCN → Security Lists → Default Security List. Add the following Ingress Rules:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Source CIDR</th>
+                            <th>IP Protocol</th>
+                            <th>Port Range</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>0.0.0.0/0</td><td>UDP</td><td>1194</td><td>OpenVPN</td></tr>
+                        <tr><td>0.0.0.0/0</td><td>TCP</td><td>80</td><td>Pi-Hole Web UI (HTTP)</td></tr>
+                        <tr><td>0.0.0.0/0</td><td>TCP</td><td>443</td><td>Pi-Hole Web UI (HTTPS)</td></tr>
+                        <tr><td>0.0.0.0/0</td><td>UDP</td><td>53</td><td>Pi-Hole DNS (UDP)</td></tr>
+                        <tr><td>0.0.0.0/0</td><td>TCP</td><td>53</td><td>Pi-Hole DNS (TCP)</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Phase 2: Software Installation & Configuration</h3>
+                <p>Connect to your server and install the necessary software.</p>
+                
+                <strong>2.1 Connect & Elevate</strong>
+                <p>Connect to your server using the public IP and the private key you downloaded.</p>
+                <div class="code-block">chmod 400 /path/to/your/private-key.key
+ssh -i /path/to/your/private-key.key ubuntu@&lt;YOUR_PUBLIC_IP&gt;</div>
+                <p>Immediately after connecting, switch to the root user.</p>
+                <div class="code-block">sudo su - root</div>
+
+                <strong>2.2 System Update</strong>
+                <p>Update all system packages.</p>
+                <div class="code-block">apt update && apt upgrade -y</div>
+
+                <strong>2.3 Configure OS Firewall (UFW)</strong>
+                <p>Configure the server's local firewall to mirror the OCI security list.</p>
+                <div class="code-block">apt install -y ufw
+ufw allow 22/tcp comment 'SSH Access'
+ufw allow 80/tcp comment 'Pi-Hole Web UI HTTP'
+ufw allow 443/tcp comment 'Pi-Hole Web UI HTTPS'
+ufw allow 1194/udp comment 'OpenVPN UDP'
+ufw allow 53/tcp comment 'Pi-Hole DNS TCP'
+ufw allow 53/udp comment 'Pi-Hole DNS UDP'
+ufw --force enable</div>
+
+                <strong>2.4 Install Pi-Hole</strong>
+                <p>Run the official Pi-Hole installation script.</p>
+                <div class="code-block">curl -sSL https://install.pi-hole.net | bash</div>
+                
+                <p><strong>Installer Prompts Summary:</strong></p>
+                <ul class="setup-list">
+                    <li>Upstream DNS: Choose any provider (e.g., Google).</li>
+                    <li>Block Lists: Accept the default.</li>
+                    <li>Protocols: Select both IPv4 and IPv6.</li>
+                    <li>Accept defaults for the rest. Save the admin password shown at the end.</li>
+                </ul>
+
+                <p>Set a new, strong admin password immediately.</p>
+                <div class="code-block">pihole setpassword</div>
+
+                <strong>2.5 Configure Pi-Hole for VPN</strong>
+                <p>This setting is crucial for allowing VPN clients to use Pi-Hole as their DNS server.</p>
+                <ul class="setup-list">
+                    <li>Log in to the Pi-Hole web admin UI at <span class="code-snippet">http://&lt;YOUR_PUBLIC_IP&gt;/admin</span>.</li>
+                    <li>Go to <strong>Settings → DNS</strong> tab.</li>
+                    <li>Under Interface settings, select <strong>Permit all origins</strong>.</li>
+                    <li>Click Save.</li>
+                </ul>
+
+                <strong>2.6 Configure Custom Blocklists</strong>
+                <p>Manually add the following lists in the Pi-Hole web interface (Adlists page).</p>
+                
+                <p><strong>Lists to Enable</strong></p>
+                <ul class="setup-list">
+                    <li>URL: <span class="code-snippet">https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn-social/hosts</span><br>Comment: Steven Black | Unified Host</li>
+                    <li>URL: <span class="code-snippet">https://big.oisd.nl</span><br>Comment: OISD | Big</li>
+                    <li>URL: <span class="code-snippet">https://nsfw.oisd.nl</span><br>Comment: OISD | Porn</li>
+                </ul>
+
+                <p><strong>List to Disable (For potential whitelisting)</strong></p>
+                <ul class="setup-list">
+                    <li>URL: <span class="code-snippet">https://raw.githubusercontent.com/LukeSmithxyz/etc/master/ips</span><br>Comment: Luke Smith | Master IPs</li>
+                </ul>
+
+                <p>After adding all lists, navigate to <strong>Tools → Update Gravity</strong> to apply the new blocklists.</p>
+
+                <h3>Phase 3: OpenVPN Installation & Final Integration</h3>
+                <p>Install OpenVPN and configure it to use Pi-Hole for DNS.</p>
+                
+                <strong>3.1 Install OpenVPN</strong>
+                <p>Download and run the helper script on your server.</p>
+                <div class="code-block">curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
+chmod +x openvpn-install.sh
+./openvpn-install.sh</div>
+                
+                <p><strong>Crucial Installer Selections:</strong></p>
+                <ul class="setup-list">
+                    <li>Protocol: Choose <strong>UDP</strong>.</li>
+                    <li>DNS (CRITICAL): Select <strong>Custom DNS</strong>.</li>
+                    <li>Custom DNS IP: Enter your server's <strong>Private IP Address</strong> (e.g., <span class="code-snippet">10.0.0.X</span>).</li>
+                    <li>Client Name: Choose a name (e.g., <span class="code-snippet">my-phone</span>).</li>
+                </ul>
+
+                <strong>3.2 Enable IP Forwarding</strong>
+                <p>Edit <span class="code-snippet">/etc/sysctl.conf</span> to enable IP forwarding permanently.</p>
+                <div class="code-block">nano /etc/sysctl.conf</div>
+                <p>Uncomment the line <span class="code-snippet">#net.ipv4.ip_forward=1</span> by removing the <span class="code-snippet">#</span>. Save and exit. Then apply:</p>
+                <div class="code-block">sysctl -p</div>
+
+                <strong>3.3 Move Client Config File</strong>
+                <p>Move the generated <span class="code-snippet">.ovpn</span> file to the <span class="code-snippet">ubuntu</span> user's home directory for easy download.</p>
+                <div class="code-block"># Replace &lt;CLIENT_NAME&gt; with the name you chose in step 3.1
+mv /root/&lt;CLIENT_NAME&gt;.ovpn /home/ubuntu/&lt;CLIENT_NAME&gt;.ovpn</div>
+
+                <strong>3.4 Download Client Config</strong>
+                <p>On your local machine's terminal, run this command to download the file:</p>
+                <div class="code-block"># Replace placeholders, the dot (.) downloads it to the current directory
+scp -i /path/to/your/private-key.key ubuntu@&lt;YOUR_PUBLIC_IP&gt;:/home/ubuntu/&lt;CLIENT_NAME&gt;.ovpn .</div>
+
+                <strong>3.5 Test and Verify</strong>
+                <p>Import the downloaded <span class="code-snippet">.ovpn</span> file into your OpenVPN client (like OpenVPN Connect or Tunnelblick). Connect to the VPN and confirm that ads are being blocked by checking the Pi-Hole dashboard for query logs from your client's IP.</p>
+
+                <strong>3.6 Auto-Connect on Ubuntu (Optional)</strong>
+                <p>If using an Ubuntu desktop, run this command to manage network connections:</p>
+                <div class="code-block">nm-connection-editor</div>
+                <p>Import your <span class="code-snippet">.ovpn</span> file via the editor, then check the General tab and select 'Automatically connect to this network when it is available'.</p>
+
+                <h3>Phase 4: Maintenance and Updates</h3>
+                <p>Regularly update your server for security and performance.</p>
+
+                <strong>4.1 Comprehensive System and App Update</strong>
+                <p>Run this command as root to update the OS and Pi-Hole simultaneously.</p>
+                <div class="code-block">apt update && apt upgrade -y && apt dist-upgrade -y && pihole -up</div>
+
+                <strong>4.2 Update Pi-Hole Ad Lists (Gravity)</strong>
+                <p>Run this to fetch the latest version of your blocklists, ensuring up-to-date ad protection.</p>
+                <div class="code-block">pihole -g</div>
+
+                <strong>4.3 Restart Server</strong>
+                <p>Reboot the server after major updates or configuration changes.</p>
+                <div class="code-block">reboot</div>
+
+                <div class="back-to-top">
+                    <a onclick="window.scrollTo(0,0)">↑ TOP</a>
+                </div>
+            </section>
+
+            <!-- HOST PROJECT V2.0 FULL DETAILS -->
+            <section id="host-project-v2" class="tab-content">
+                <nav>
+                    <a onclick="showTab('side-quests')">← Back to Side Quests</a>
+                </nav>
+                <h2>Host - Block the bullshit web [V2.0]</h2>
+                <p>Block advertisements, tracking scripts, and unwanted content across your devices by routing traffic through a Pi-Hole DNS resolver tunnelled via OpenVPN. This setup is hosted on the Oracle Cloud free tier.</p>
+                <p><em>Note: This guide is written for Ubuntu OS (updated Oct 2023).</em></p>
+
+                <div class="caution-box">
+                    <strong>Caution:</strong> We will enable root access for convenience. If you are familiar with SSH, standard security practices are recommended over this approach. Proceed with caution.
+                </div>
+
+                <h3>1. Instance Setup</h3>
+                <ul class="setup-list">
+                    <li>Create an <a href="https://www.oracle.com/cloud/free" target="_blank">Oracle Cloud Free Tier</a> account.</li>
+                    <li>Setup an instance and switch the OS from Oracle Linux to <strong>Ubuntu</strong>.</li>
+                    <li>Save the generated public and private keys carefully. Note your Public and Private IPs.</li>
+                    <li>Log in to Shell and switch to root: <span class="code-snippet">sudo su - root</span>.</li>
+                    <li>Update your root password: <span class="code-snippet">passwd root</span>.</li>
+                    <li>Install Nano: <span class="code-snippet">sudo apt install nano -y</span>.</li>
+                    <li><strong>Network Configuration:</strong> In the Oracle GUI, navigate to <em>Networking > Virtual Cloud Networks > vcn-XXXX > Security Lists > Default Security List</em>.</li>
+                    <li>Add an <strong>Ingress Rule</strong>: Source CIDR <span class="code-snippet">0.0.0.0/0</span>, Protocol <strong>UDP</strong>, Destination Port <strong>1194</strong>.</li>
+                </ul>
+
+                <h3>2. Software Installation</h3>
+                <p>Connect to your server locally using your private key: <span class="code-snippet">ssh -i keyfile ubuntu@PublicIP</span>.</p>
+                <ul class="setup-list">
+                    <li><strong>Pi-Hole:</strong> Use the <a href="https://github.com/pi-hole/pi-hole/#one-step-automated-install" target="_blank">one-step automated install</a>. Select interface <span class="code-snippet">tun0</span>. Change password via <span class="code-snippet">sudo pihole -a -p</span>.</li>
+                    <li><strong>Blocklists:</strong> I recommend the <a href="https://oisd.nl/" target="_blank">OISD blocklist</a> for comprehensive coverage.</li>
+                    <li><strong>OpenVPN:</strong> Use the <a href="https://github.com/angristan/openvpn-install" target="_blank">Angristan script</a>. Select Port <strong>1194</strong>.</li>
+                </ul>
+
+                <h3>3. Security & DNS Routing</h3>
+                <ul class="setup-list">
+                    <li>Edit SSH config: <span class="code-snippet">sudo nano /etc/ssh/sshd_config</span>.</li>
+                    <li>Set <span class="code-snippet">PasswordAuthentication yes</span> and <span class="code-snippet">PermitRootLogin yes</span> (at your own risk).</li>
+                    <li>Point VPN to Pi-Hole: <span class="code-snippet">sudo nano /etc/openvpn/server.conf</span> and update to <span class="code-snippet">push "dhcp-option DNS [Pi-Hole Private IP]"</span>.</li>
+                    <li>Restart SSH and the VM: <span class="code-snippet">sudo systemctl restart sshd</span>.</li>
+                </ul>
+
+                <h3>4. Managing Profiles & Access</h3>
+                <ul class="setup-list">
+                    <li><strong>Profiles:</strong> Add/revoke certificates via <span class="code-snippet">./openvpn-install.sh</span>. Copy to home directory to download: <span class="code-snippet">cp /root/profile.ovpn /home</span>.</li>
+                    <li><strong>Dashboard:</strong> Connect to the VPN, then navigate to <span class="code-snippet">https://[Private IP]/admin</span> in your browser.</li>
+                    <li><strong>Maintenance:</strong> Periodically run <span class="code-snippet">apt update && apt upgrade</span>, <span class="code-snippet">pihole -up</span>, and <span class="code-snippet">pihole -g</span>.</li>
+                </ul>
+
+                <p><a href="https://www.reddit.com/r/pihole/comments/oooyaj/update_perf_stats_pihole_openvpn_on_oracle_cloud/" target="_blank">View Performance Stats</a></p>
+
+                <div class="image-placeholder">
+                    <strong>[Feedback Image Placeholder]</strong><br>
+                    <small>User feedback on Host V2.0 performance and reliability.</small>
+                </div>
+
+                <h3>Credits</h3>
+                <p>Thanks to the folks at <a href="https://pi-hole.net/" target="_blank">Pi-Hole</a>, <a href="https://openvpn.net/" target="_blank">OpenVPN</a>, and <a href="https://github.com/angristan" target="_blank">Angristan</a>. Shout-out to the <a href="https://www.reddit.com/r/pihole/comments/omtaf3/pihole_openvpn_on_oracle_cloud_always_free_tier/" target="_blank">r/pihole community</a> and <a href="https://gitlab.com/karliskavacis" target="_blank">Karlis K</a> 🇱🇻.</p>
+
+                <div class="back-to-top">
+                    <a onclick="window.scrollTo(0,0)">↑ TOP</a>
+                </div>
+            </section>
+
+            <!-- HOST PROJECT V1.0 FULL DETAILS -->
+            <section id="host-project-v1" class="tab-content">
+                <nav>
+                    <a onclick="showTab('side-quests')">← Back to Side Quests</a>
+                </nav>
+                <h2>Host - Block the bullshit web [V1.0]</h2>
+                <p>Advertisements, tracking scripts, and malicious code are constantly monitoring you. Host is a simple, effective way to block this noise—including trackers and pornographic content—using a modified Windows hosts file.</p>
+                <p>This project was inspired by the <a href="https://pxlnv.com/blog/bullshit-web/" target="_blank">"Bullshit Web"</a> concept. I've also included a quick toggle feature specifically for Windows users.</p>
+                
+                <p><em>Note: This guide is written for Windows 10 OS (updated Jun 2020).</em></p>
+
+                <h3>1. Prerequisites & Resources</h3>
+                <p>You will need two main components to get started:</p>
+                <ul class="setup-list">
+                    <li><strong>Unified Hosts File:</strong> A consolidated list of reputable blocking sources with duplicates removed. <a href="https://drive.google.com/file/d/14VHRlwHhfUvGLKUDpa9mBbU1hIe9Ros8/view?usp=sharing" target="_blank">Download here</a>.</li>
+                    <li><strong>Toggle Script (hosts.bat):</strong> A batch script to enable/disable the hosts file with a single click. <a href="https://drive.google.com/file/d/1iTQsHKjxomYp_TH0fTNAZPdtREznQz48/view?usp=sharing" target="_blank">Download here</a>.</li>
+                </ul>
+
+                <h3>2. The Setup</h3>
+                <p>Follow these steps to configure your system for efficient blocking:</p>
+                <ul class="setup-list">
+                    <li><strong>Installation:</strong> Place the downloaded <span class="code-snippet">hosts</span> file in <span class="code-snippet">C:\Windows\System32\drivers\etc</span>. Alternatively, you can fetch a specific variant from <a href="https://github.com/StevenBlack/hosts/" target="_blank">Steven Black’s GitHub repository</a>.</li>
+                    <li><strong>Privilege Escalation:</strong> Navigate to <span class="code-snippet">HKEY_CLASSES_ROOT\batfile\shell</span> in the Registry Editor. Change the <span class="code-snippet">(Default)</span> value to <span class="code-snippet">runas</span> to ensure batch files run with admin rights.</li>
+                    <li><strong>DNS Cache Opt-out:</strong> Go to <span class="code-snippet">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Dnscache</span> and set the <span class="code-snippet">Start</span> value to <span class="code-snippet">4</span>.</li>
+                    <li><strong>Service Check:</strong> Open <span class="code-snippet">services.msc</span> and ensure the <strong>DNS Client</strong> is set to <strong>Disabled</strong>.</li>
+                </ul>
+
+                <h3>3. Efficient Usage</h3>
+                <p>Manual editing is tedious. Use one of these methods to toggle the hosts file instantly:</p>
+
+                <strong>Method 1: Direct Command</strong>
+                <ul class="method-list">
+                    <li>Save <span class="code-snippet">hosts.bat</span> in <span class="code-snippet">C:\Windows\System32</span>.</li>
+                    <li>Trigger it anytime via <span class="code-snippet">Win + R</span> -> type <span class="code-snippet">hosts</span> -> <span class="code-snippet">Enter</span>.</li>
+                </ul>
+
+                <strong>Method 2: Taskbar Shortcut</strong>
+                <ul class="method-list">
+                    <li>Pin <strong>Command Prompt</strong> to your taskbar.</li>
+                    <li>Hold <span class="code-snippet">SHIFT</span>, right-click the icon, and select <strong>Properties</strong>.</li>
+                    <li>Change the Target to: <span class="code-snippet">%windir%\system32\cmd.exe /c "path\to\your\hosts.bat"</span></li>
+                    <li>Rename it to <strong>Toggle Hosts</strong> for easy identification.</li>
+                </ul>
+
+                <h3>Credits</h3>
+                <p>The core logic of this project relies on the incredible work of <a href="http://stevenblack.com/" target="_blank">Steven Black</a> and his contributors. The toggle script methodology is credited to <a href="https://www.winhelponline.com/blog/automatically-elevate-batch-file-run-administrator/" target="_blank">Ramesh Srinivasan</a>.</p>
+
+                <div class="back-to-top">
+                    <a onclick="window.scrollTo(0,0)">↑ TOP</a>
+                </div>
+            </section>
+
+            <!-- FAQS SECTION -->
+            <section id="faqs" class="tab-content">
+                <dl class="faq-list">
+                    <dt>Is Floydimus your real name?</dt>
+                    <dd>No, Floydimus is my screen name aka virtual identity that I created for privacy reasons.</dd>
+                    <dt>What does Floydimus mean?</dt>
+                    <dd>I am huge fan of an English rock act, Pink Floyd. Fans are called Floydians and I Latinised it to Floydimus.</dd>
+                    <dt>Why are you being anonymous?</dt>
+                    <dd>Inspired by one of my favourite artists, <a href="http://www.banksy.co.uk/" target="_blank">Banksy</a>, I believe that my work should be my identity and speak on my behalf. Also, I prefer a private life.</dd>
+                    <dt>I am interested in time travel, what should I do?</dt>
+                    <dd>Meet me at <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">28.06.42.12</a>, last Thursday.</dd>
+                    <dt>Does invention of Microwave prove the existence of God?</dt>
+                    <dd>Yes, I think so. Reheating my Ramen was indeed a spiritual experience.</dd>
+                    <dt>Since you are an audiophile, do you also play any musical instrument?</dt>
+                    <dd>I always wanted to learn and play drums, I started with a practice pad; however, I could not build discipline due to variety of reasons.</dd>
+                    <dt>As a product manager, which is your favourite product?</dt>
+                    <dd>I am an Spreadsheet junkie. It's fun to try new formulas and work with a workbook all day.</dd>
+                    <dt>Are you still accepting mentorship or career guidance requests?</dt>
+                    <dd>No, because I believe there are smarter people than me to do so. Also, #RTFM</dd>
+
+                    <dd>Warrant canary.</dd>
+                </dl>
+            </section>
+
+            <!-- CONTACT SECTION -->
+            <section id="contact" class="tab-content">
+                <p>
+                    For queries, creative insults, or personalised death threats (yes, I have received them in the past) write your letters to <span class="email-text">hello[at]prismo[dot]net</span>.
+                </p>
+                <p>
+                    If emails don't get through, try smoke signals or sending pigeons, ask them to fly east.
+                </p>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>Copyleft <span class="copyleft">&copy;</span> MMXXVI Floydimus.</p>
+        <p>Best viewed <i>without</i> Internet Explorer.</p>
+    </footer>
+
+    <script>
+        function showTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const navLinks = document.querySelectorAll('#main-nav a');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            // Show the target section
+            const targetSection = document.getElementById(tabId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Highlight the nav link ONLY if it's one of the main header tabs
+            const navLink = document.getElementById('nav-' + tabId);
+            if (navLink) {
+                navLink.classList.add('active');
+            } else if (tabId.startsWith('host-project') || tabId === 'rhythm-stats') {
+                // Keep Side Quests highlighted if in a project sub-page
+                document.getElementById('nav-side-quests').classList.add('active');
+            }
+
+            window.scrollTo(0, 0);
+        }
+    </script>
+
 </body>
 </html>
