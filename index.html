@@ -287,8 +287,24 @@
             .return-node a:hover {
                 background-color: transparent;
                 color: #1a1a1a;
-                text-decoration: underline;
+                text-decoration: none;
             }
+
+            /* Responsive Image Handling */
+img {
+    max-width: 100%;    /* Image will never exceed its container width */
+    height: auto;       /* Maintains aspect ratio so images don't look stretched */
+    display: block;     /* Removes weird bottom gaps common with inline elements */
+    margin: 20px auto;  /* Centres images and adds breathing room */
+}
+
+/* Specific styling for your charts */
+.chart-embed {
+    width: 100%;        /* Forces SVGs to fill the container width */
+    max-width: 680px;   /* Prevents them from getting too large on big screens */
+    border: 1px solid #eee; /* Optional: adds a subtle frame */
+    padding: 10px;
+}
 
             footer {
                 flex-shrink: 0;
