@@ -1,8 +1,0 @@
-This file tells all search engine crawlers to stay away.
-​User-agent: *
-Disallow: /
-​Specifically blocking common image bots
-​User-agent: Googlebot-Image
-Disallow: /
-​User-agent: MSNBOT-News
-Disallow: /
