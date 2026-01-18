@@ -1,7 +1,7 @@
-Lunar Monochrome
+Prismo
 ================
 
-​Inspired by the stark clarity of lunar landscapes, Lunar Monochrome is a minimalist, high-contrast personal branding page designed for technologists and leaders who prioritise digital sovereignty, simplicity, and the old-school aesthetic of the early web, rejecting modern web bloat—function over form.
+A lunar Monochrome, inspired by the stark clarity of the lunar landscapes, Prismo is a minimalist, high-contrast personal branding page designed for technologists and leaders who prioritise digital sovereignty, simplicity, and the old-school aesthetic of the early web, rejecting modern web bloat—function over form.
 
 ​Function
 ---------
@@ -24,4 +24,4 @@ Lunar Monochrome
 ​License
 --------
 
-​[Lunar Monochrome](https://www.google.com/search?q=https://github.com/Floydimus02/lunar-monochrome) © 2026 by [Floydimus](https://github.com/Floydimus02) is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+This work is licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)![](https://mirrors.creativecommons.org/presskit/icons/cc.svg)![](https://mirrors.creativecommons.org/presskit/icons/by.svg)![](https://mirrors.creativecommons.org/presskit/icons/nc.svg)![](https://mirrors.creativecommons.org/presskit/icons/nd.svg)
