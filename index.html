@@ -7,9 +7,8 @@
         <title>There is no dark side in the moon, really. Matter of fact, it's all dark.</title>
         <link rel="icon" href="/asset/favicon.png" />
 
-        <!-- Courier Prime: Open Source Typewriter Serif Font -->
-        <!-- Hosted on cdnjs (uBO friendly, non-Google) -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/courier-prime/2.1.0/courier-prime.min.css" xintegrity="sha512-98S8z6688A752+K4i+fA8+8zO1r6uLia6f3P+M6S4/K1O2uA9H6C73177685432134567890" crossorigin="anonymous" referrerpolicy="no-referrer" />
+         <!-- Preload font to prevent layout shift -->
+        <link rel="preload" href="/asset/courier-prime.regular.woff2" as="font" type="font/woff2" crossorigin>
 
         <style>
             /* COLOUR PALETTE
@@ -18,6 +17,14 @@
            Links: #0000ee (Classic Blue)
            Active/Hover: #00008b (Dark Navy)
         */
+            /* SELF-HOSTED FONT - Bypasses Firefox Strict Mode */
+            @font-face {
+                font-family: 'Courier Prime';
+                src: url('/asset/courier-prime.woff2') format('woff2');
+                font-weight: normal;
+                font-style: normal;
+                font-display: swap;
+            }
 
             html,
             body {
@@ -27,8 +34,7 @@
             }
 
             body {
-                /* Prioritize Courier Prime as it bypasses Firefox Strict local font blocking */
-                font-family: "Courier Prime", "Courier New", Courier, monospace;
+                font-family:  "Courier Prime", "Courier New", Courier, monospace;
                 line-height: 1.6;
                 color: #1a1a1a;
                 background-color: #ffffff;
