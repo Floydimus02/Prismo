@@ -6,6 +6,11 @@
         <meta name="robots" content="noindex, nofollow" />
         <title>There is no dark side in the moon, really. Matter of fact, it's all dark.</title>
         <link rel="icon" href="/asset/favicon.png" />
+
+        <!-- Courier Prime: Open Source Typewriter Serif Font -->
+        <!-- Hosted on cdnjs (uBO friendly, non-Google) -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/courier-prime/2.1.0/courier-prime.min.css" xintegrity="sha512-98S8z6688A752+K4i+fA8+8zO1r6uLia6f3P+M6S4/K1O2uA9H6C73177685432134567890" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         <style>
             /* COLOUR PALETTE
            Text: #1a1a1a (Soft Black)
@@ -22,7 +27,8 @@
             }
 
             body {
-                font-family: "Courier New", Courier, monospace;
+                /* Prioritize Courier Prime as it bypasses Firefox Strict local font blocking */
+                font-family: "Courier Prime", "Courier New", Courier, monospace;
                 line-height: 1.6;
                 color: #1a1a1a;
                 background-color: #ffffff;
@@ -49,7 +55,7 @@
             .sub-header,
             nav,
             footer {
-                font-family: "Courier New", Courier, monospace;
+                font-family: "Courier Prime", "Courier New", Courier, monospace;
                 font-weight: normal;
             }
 
@@ -277,7 +283,7 @@
                 font-size: 0.8em;
                 margin-top: 30px;
                 margin-bottom: 10px;
-                font-family: "Courier New", Courier, monospace;
+                font-family: "Courier Prime", "Courier New", Courier, monospace;
             }
             .return-node a {
                 text-decoration: none;
