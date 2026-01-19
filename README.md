@@ -1,7 +1,7 @@
 Prismo
 ================
 
-A lunar Monochrome, inspired by the stark clarity of the lunar landscapes, Prismo is a minimalist, high-contrast personal branding page designed for technologists and leaders who prioritise digital sovereignty, simplicity, and the old-school aesthetic of the early web, rejecting modern web bloat—function over form.
+A lunar Monochrome, inspired by the stark clarity of the lunar landscapes, Prismo is a minimalist, high-contrast personal branding page designed for those who prioritise digital sovereignty, simplicity, and the index style aesthetic of the early internet, rejecting modern web bloat—function over form.
 
 ​Function
 ---------
