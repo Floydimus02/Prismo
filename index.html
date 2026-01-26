@@ -1,1271 +1,948 @@
 <!doctype html>
 <html lang="en-GB">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="robots" content="noindex, nofollow" />
-        <title>There is no dark side in the moon, really. Matter of fact, it's all dark.</title>
-        <link rel="icon" href="/asset/favicon.png" />
-
-        <style>
-            /* COLOUR PALETTE
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>There is no dark side in the moon, really. Matter of fact, it's all dark.</title>
+    <link rel="icon" href="/asset/favicon.png" />
+    <style>
+      /* COLOUR PALETTE
            Text: #1a1a1a (Soft Black)
            Background: #ffffff (White)
            Links: #0000ee (Classic Blue)
            Active/Hover: #00008b (Dark Navy)
         */
-            
-            html,
-            body {
-                height: 100%;
-                scroll-behavior: smooth;
-                font-size: 16px; /* Reduced from 18px for a cleaner look */
+      /* courier-prime-regular - latin */
+      @font-face {
+        font-display: swap;
+        font-family: 'Courier Prime';
+        font-style: normal;
+        font-weight: 400;
+        src: url('asset/cp.woff2') format('woff2');
+        /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+      }
+
+      html,
+      body {
+        height: 100%;
+        scroll-behavior: smooth;
+        font-size: 16px;
+        /* Reduced from 18px for a cleaner look */
+      }
+
+      body {
+        font-family: "Courier Prime", "Courier New", Courier, monospace;
+        line-height: 1.6;
+        color: #1a1a1a;
+        background-color: #ffffff;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      .container {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 40px 20px 0 20px;
+        flex: 1 0 auto;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      header {
+        margin-bottom: 2em;
+      }
+
+      h1,
+      .sub-header,
+      nav,
+      footer {
+        font-family: "Courier Prime", "Courier New", Courier, monospace;
+        font-weight: normal;
+      }
+
+      h1 {
+        font-size: 2em;
+        /* Reduced from 2.2em */
+        margin-bottom: 0;
+        margin-top: 0;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+      }
+
+      .sub-header {
+        font-size: 0.85em;
+        color: #666;
+        margin-bottom: 1.2em;
+        display: block;
+        text-transform: lowercase;
+      }
+
+      p {
+        margin-bottom: 1.1em;
+        font-size: 1em;
+        /* Matches body size */
+      }
+
+      a {
+        color: #0000ee;
+        text-decoration: underline;
+        transition: color 0.2s ease-in-out;
+        cursor: pointer;
+      }
+
+      a:hover {
+        color: #00008b;
+        background-color: transparent;
+        text-decoration: none;
+      }
+
+      nav {
+        margin-bottom: 0;
+        font-size: 1em;
+        padding-bottom: 4px;
+        white-space: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      nav a {
+        text-decoration: none;
+        margin-right: 20px;
+        cursor: pointer;
+        color: #0000ee;
+        display: inline-block;
+      }
+
+      nav a:hover {
+        color: #00008b;
+      }
+
+      nav a.active {
+        color: #1a1a1a;
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      .tab-content {
+        display: none;
+        padding-top: 0;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      ul.index-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 1em 0;
+      }
+
+      ul.index-list li {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: baseline;
+      }
+
+      .date {
+        font-size: 0.85em;
+        color: #666;
+        width: 110px;
+        flex-shrink: 0;
+      }
+
+      .version-history {
+        font-size: 0.85em;
+        color: #666;
+        margin-top: 4px;
+        display: block;
+      }
+
+      ul.now-list,
+      ul.setup-list,
+      ul.method-list {
+        list-style-type: "- ";
+        padding-left: 20px;
+        margin-bottom: 1.1em;
+        font-size: 1em;
+      }
+
+      ul.now-list li,
+      ul.setup-list li,
+      ul.method-list li {
+        margin-bottom: 8px;
+      }
+
+      dl.questions-list {
+        margin: 0.5em 0;
+      }
+
+      dl.questions-list dt {
+        font-weight: normal;
+        margin-top: 2em;
+        color: #1a1a1a;
+        font-size: 1em;
+      }
+
+      dl.questions-list dt:first-child {
+        margin-top: 0.5em;
+      }
+
+      dl.questions-list dd {
+        margin-left: 0;
+        margin-bottom: 1.1em;
+        color: #444;
+        border-left: 2px solid #eee;
+        padding-left: 15px;
+        font-style: italic;
+        font-size: 0.95em;
+      }
+
+      .email-text {
+        font-weight: 600;
+        color: #1a1a1a;
+      }
+
+      h2 {
+        font-size: 1.4em;
+        /* Reduced from 1.5em */
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+        font-weight: normal;
+        border-bottom: 1px solid #eee;
+      }
+
+      h3 {
+        font-size: 1.05em;
+        /* Reduced from 1.1em */
+        margin-top: 1.8em;
+        margin-bottom: 0.6em;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .code-snippet {
+        background: #f9f9f9;
+        padding: 2px 4px;
+        border-radius: 4px;
+        font-family: Consolas, "Liberation Mono", Courier, monospace;
+        font-size: 0.9em;
+      }
+
+      .code-block {
+        background-color: #f4f4f4;
+        padding: 12px;
+        border-left: 3px solid #0000ee;
+        font-family: Consolas, "Liberation Mono", Courier, monospace;
+        font-size: 0.85em;
+        margin: 15px 0;
+        overflow-x: auto;
+        white-space: pre;
+      }
+
+      .caution-box {
+        background-color: #fff9f9;
+        border-left: 4px solid #ff4d4d;
+        padding: 12px;
+        margin: 20px 0;
+        font-size: 0.9em;
+      }
+
+      .chart-note {
+        font-size: 0.8em;
+        color: #777;
+        background: #fcfcfc;
+        border: 1px solid #f0f0f0;
+        padding: 10px;
+        margin: 15px 0;
+        font-style: italic;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85em;
+        margin: 15px 0;
+      }
+
+      th,
+      td {
+        border: 1px solid #eee;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f9f9f9;
+        font-weight: bold;
+      }
+
+      .chart-embed {
+        width: 100%;
+        height: 400px;
+        border: none;
+        margin-bottom: 30px;
+        background-color: #fff;
+      }
+
+      /* Back to Top mechanism */
+      .return-node {
+        display: block !important;
+        text-align: right;
+        font-size: 0.8em;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        font-family: "Courier Prime", "Courier New", Courier, monospace;
+      }
+
+      .return-node a {
+        text-decoration: none;
+        color: #666;
+        cursor: pointer;
+      }
+
+      .return-node a:hover {
+        background-color: transparent;
+        color: #1a1a1a;
+        text-decoration: none;
+      }
+
+      /* Responsive Image Handling */
+      img {
+        max-width: 100%;
+        /* Image will never exceed its container width */
+        height: auto;
+        /* Maintains aspect ratio so images don't look stretched */
+        display: block;
+        /* Removes weird bottom gaps common with inline elements */
+        margin-left: 0;
+        margin-right: auto;
+        /* Ensures no centering from parent containers */
+      }
+
+      /* Specific styling for your charts */
+      .chart-embed {
+        width: 100%;
+        /* Forces SVGs to fill the container width */
+        max-width: 680px;
+        /* Prevents them from getting too large on big screens */
+        border: 1px solid #eee;
+        /* Optional: adds a subtle frame */
+        padding: 10px;
+      }
+
+      footer {
+        flex-shrink: 0;
+        margin-top: 2em;
+        padding: 20px;
+        font-size: 0.8em;
+        /* Reduced from 0.85em */
+        color: #666;
+        text-align: center;
+        width: 100%;
+        max-width: 720px;
+        margin-left: auto;
+        margin-right: auto;
+        border-top: 1px solid #eee;
+        box-sizing: border-box;
+        line-height: 1.3;
+      }
+
+      footer p {
+        margin: 6px 0;
+      }
+
+      .copyleft {
+        display: inline-block;
+        transform: rotate(180deg);
+      }
+
+      .unix-time {
+        font-size: 0.8em;
+        color: #888;
+        margin-top: 2em;
+        border-top: 1px dashed #eee;
+        padding-top: 1em;
+      }
+
+      .batteries-note {
+        font-size: 0.8em;
+        color: #666;
+        margin-top: 2em;
+        font-style: italic;
+      }
+
+      @media (max-width: 600px) {
+
+        html,
+        body {
+          font-size: 15px;
+        }
+
+        .container {
+          padding: 30px 20px 0 20px;
+        }
+
+        .date {
+          width: 90px;
+        }
+
+        .chart-embed {
+          height: 300px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>FLOYDIMUS</h1><span class="sub-header">son // husband // audiophile // open-source evangelist </span>
+        <nav id="main-nav"><a onclick="showTab('about')" id="nav-about" class="active">About</a><a onclick="showTab('now')" id="nav-now">Now</a><a onclick="showTab('lab')" id="nav-lab">Lab</a><a onclick="showTab('questions?')" id="nav-questions?">Questions?</a><a onclick="showTab('contact')" id="nav-contact">Contact</a></nav>
+      </header>
+      <main>
+        <!-- ABOUT SECTION -->
+        <section id="about" class="tab-content active">
+          <p> Greetings! I am Floydimus, cruising with curiosity and a heart full of joy; thank you for dropping by. </p>
+          <p>I am a creator in a world of consumers—an observer, a free thinker, and a curious soul.</p>
+          <p> As a life-long learner, I believe that knowledge should be freely available and accessible to all and only through diversity can we truly build a better world. </p>
+          <p> Oddly enough, I get emotional over fonts and colours as I have a soft spot for clean and simple design. </p>
+          <div class="unix-time">UNIX: <span id="unix-display">0000000000</span>
+          </div>
+        </section>
+        <!-- NOW SECTION -->
+        <section id="now" class="tab-content">
+          <p> In a parallel universe, I am an anthropologist, archaeologist, sound engineer, or a beachside burger-joint owner playing rock & roll all day. </p>
+          <p> In this reality, I am a product management professional specialising in consumer internet, metric optimisation, and building high-performing teams where I find genuine joy in my craft of solving problems for both people and the planet. </p>
+          <p> Grounded in first principles, experimentation, and a customer-centric mindset, I lead products from inception to maturity— turning concepts into high-impact, scalable solutions. </p>
+          <p> Beyond the screen, I enjoy waterfronts, museums, art galleries, and rock concerts—wherever the distorted guitar is the main theme. </p>
+          <p> While I am fascinated by the cosmos, spaceship engineering, and rocket launches, I also enjoy conversations about history, technology, and time-travel, a wonder for the past and future. </p>
+          <p>For <a href="https://sivers.org/nowff" target="_blank">now</a>, I am: </p>
+          <ul class="now-list">
+            <li>Building a memorable life with my partner.</li>
+            <li>Leading product managers as a group product head in entertainment tech.</li>
+            <li> Supporting <a href="https://en.wikipedia.org/wiki/Free_software_movement" target="_blank">free software</a> and <a href="https://en.wikipedia.org/wiki/Net_neutrality" target="_blank">net neutrality</a> movements. </li>
+          </ul>
+        </section>
+        <!-- LAB SECTION -->
+        <section id="lab" class="tab-content">
+          <ul class="index-list">
+            <li>
+              <span class="date">Jan 2026</span>
+              <span>
+                <a href="https://github.com/Floydimus02/Prismo" target="_blank">Prismo</a> — A lunar Monochrome, inspired by the stark clarity of the lunar landscapes, Prismo is a minimalist, high-contrast personal branding page designed for those who prioritise digital sovereignty, simplicity, and the index style aesthetic of the early internet, rejecting modern web bloat—function over form. </span>
+            </li>
+            <li>
+              <span class="date">Dec 2025</span>
+              <span>
+                <a onclick="showTab('host-project-v3')" style="cursor: pointer">Host - Block the bullshit web [V3.0]</a> — Block advertisements and trackers across network via Oracle cloud using Pi-Hole & OpenVPN, for free. <span class="version-history">Prev: <a onclick="showTab('host-project-v2')" style="cursor: pointer">V2.0</a>, <a onclick="showTab('host-project-v1')" style="cursor: pointer">V1.0</a>
+                </span>
+              </span>
+            </li>
+            <li>
+              <span class="date">Jan 2024</span>
+              <span>
+                <a onclick="showTab('rhythm-stats')" style="cursor: pointer">Rhythm & Stats</a> — Mapping my live events DNA via gigs and gigabytes. </span>
+            </li>
+            <li>
+              <span class="date">May 2021</span>
+              <span>
+                <a href="https://gitlab.com/Floydimus/sound-of-atoms" target="_blank">Sound of Atoms</a> — Jump into the world of unknown and explore music [Abandonware]. </span>
+            </li>
+            <li>
+              <span class="date">Jun 2020</span>
+              <span>
+                <a href="https://www.tap.prismo.net/backstage" target="_blank">TAP - The Art Project</a> — A platform to find and enjoy away from the keyboard (AFK) life experiences. </span>
+            </li>
+            <li>
+              <span class="date">Mar 2020</span>
+              <span>
+                <a href="https://www.covid19india.org/volunteers" target="_blank">covid19india.org</a> — A volunteer driven, crowd-sourced tracker for COVID-19 cases in India. </span>
+            </li>
+            <li>
+              <span class="date">Sep 2019</span>
+              <span>
+                <a href="https://sites.google.com/view/productx/home" target="_blank">ProductX.io</a> — A free knowledge repository to enter and grow in the field of product management. </span>
+            </li>
+            <li>
+              <span class="date">May 2019</span>
+              <span>
+                <a href="https://github.com/Floydimus02/hazmat" target="_blank">Hazmat</a> — An open source browser extension to filter unwanted subreddits from r/Popular. </span>
+            </li>
+            <li>
+              <span class="date">Jan 2018</span>
+              <span>
+                <a href="https://gitlab.com/Floydimus/ThankYouWikipedia" target="_blank">#ThankYouWikipedia</a> — A tribute Twitter bot periodically tweeting a random Wikipedia article. Discontinued due to Twitter's API restrictions. </span>
+            </li>
+          </ul>
+          <div class="batteries-note">Batteries included.</div>
+        </section>
+        <!-- HOST PROJECT V3.0 DETAILS -->
+        <section id="host-project-v3" class="tab-content">
+          <nav>
+            <a onclick="showTab('lab')">← Back to Lab</a>
+          </nav>
+          <h2>Host - Block the bullshit web [V3.0]</h2>
+          <p> Advertisements, tracking scripts and other countless lines of code downloaded on to your machine to spam and monitor you whenever you connect to the internet. </p>
+          <p> This version leverages Oracle Cloud Infrastructure to host a Pi-Hole instance connected via OpenVPN, providing network-wide blocking for all your connected devices. </p>
+          <p>
+            <em>Note: This guide is written for Ubuntu OS (updated Dec 2025).</em>
+          </p>
+          <h3>Phase 1: Oracle Cloud Infrastructure Setup</h3>
+          <p> Initial setup of the virtual machine and network configuration within the Oracle Cloud console. </p>
+          <strong>1.1 Create a Virtual Cloud Network (VCN)</strong>
+          <ul class="setup-list">
+            <li>Log in to your Oracle Cloud account.</li>
+            <li>Navigate to <strong>Networking → Virtual Cloud Networks</strong>. </li>
+            <li>Click <strong>Start VCN Wizard</strong>. </li>
+            <li> Select <strong>VCN with Internet Connectivity</strong> and click Start VCN Wizard again. </li>
+            <li> Give your VCN a name (e.g., <span class="code-snippet">vpn-vcn</span>). Click Next, then Create. </li>
+          </ul>
+          <strong>1.2 Create a Compute Instance</strong>
+          <ul class="setup-list">
+            <li>Navigate to <strong>Compute → Instances</strong> and click Create Instance. </li>
+            <li>Name: <span class="code-snippet">vpn-server</span>. </li>
+            <li> Image and shape: Click Edit. <ul>
+                <li>Image: Select Canonical Ubuntu (latest LTS version).</li>
+                <li> Shape: Select Ampere series and the <span class="code-snippet">VM.Standard.A1.Flex</span> shape. </li>
+              </ul>
+            </li>
+            <li> Networking: Ensure your new VCN ( <span class="code-snippet">vpn-vcn</span>) and the public subnet are selected. </li>
+            <li> Add SSH keys: Choose <strong>Generate a key pair for me</strong> and save the private key. </li>
+            <li>Click Create.</li>
+          </ul>
+          <strong>1.3 Configure Network Security Rules</strong>
+          <p> Navigate to your VCN → Security Lists → Default Security List. Add the following Ingress Rules: </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Source CIDR</th>
+                <th>IP Protocol</th>
+                <th>Port Range</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0.0.0.0/0</td>
+                <td>UDP</td>
+                <td>1194</td>
+                <td>OpenVPN</td>
+              </tr>
+              <tr>
+                <td>0.0.0.0/0</td>
+                <td>TCP</td>
+                <td>80</td>
+                <td>Pi-Hole Web UI (HTTP)</td>
+              </tr>
+              <tr>
+                <td>0.0.0.0/0</td>
+                <td>TCP</td>
+                <td>443</td>
+                <td>Pi-Hole Web UI (HTTPS)</td>
+              </tr>
+              <tr>
+                <td>0.0.0.0/0</td>
+                <td>UDP</td>
+                <td>53</td>
+                <td>Pi-Hole DNS (UDP)</td>
+              </tr>
+              <tr>
+                <td>0.0.0.0/0</td>
+                <td>TCP</td>
+                <td>53</td>
+                <td>Pi-Hole DNS (TCP)</td>
+              </tr>
+            </tbody>
+          </table>
+          <h3>Phase 2: Software Installation & Configuration</h3>
+          <p>Connect to your server and install the necessary software.</p>
+          <strong>2.1 Connect & Elevate</strong>
+          <p>Connect to your server using the public IP and the private key you downloaded.</p>
+          <div class="code-block"> chmod 400 /path/to/your/private-key.key ssh -i /path/to/your/private-key.key ubuntu@&lt;YOUR_PUBLIC_IP&gt; </div>
+          <p>Immediately after connecting, switch to the root user.</p>
+          <div class="code-block">sudo su - root</div>
+          <strong>2.2 System Update</strong>
+          <p>Update all system packages.</p>
+          <div class="code-block">apt update && apt upgrade -y</div>
+          <strong>2.3 Configure OS Firewall (UFW)</strong>
+          <p>Configure the server's local firewall to mirror the OCI security list.</p>
+          <div class="code-block"> apt install -y ufw ufw allow 22/tcp comment 'SSH Access' ufw allow 80/tcp comment 'Pi-Hole Web UI HTTP' ufw allow 443/tcp comment 'Pi-Hole Web UI HTTPS' ufw allow 1194/udp comment 'OpenVPN UDP' ufw allow 53/tcp comment 'Pi-Hole DNS TCP' ufw allow 53/udp comment 'Pi-Hole DNS UDP' ufw --force enable </div>
+          <strong>2.4 Install Pi-Hole</strong>
+          <p>Run the official Pi-Hole installation script.</p>
+          <div class="code-block">curl -sSL https://install.pi-hole.net | bash</div>
+          <p>
+            <strong>Installer Prompts Summary:</strong>
+          </p>
+          <ul class="setup-list">
+            <li>Upstream DNS: Choose any provider (e.g., Google).</li>
+            <li>Block Lists: Accept the default.</li>
+            <li>Protocols: Select both IPv4 and IPv6.</li>
+            <li>Accept defaults for the rest. Save the admin password shown at the end.</li>
+          </ul>
+          <p>Set a new, strong admin password immediately.</p>
+          <div class="code-block">pihole setpassword</div>
+          <strong>2.5 Configure Pi-Hole for VPN</strong>
+          <p>This setting is crucial for allowing VPN clients to use Pi-Hole as their DNS server.</p>
+          <ul class="setup-list">
+            <li> Log in to the Pi-Hole web admin UI at <span class="code-snippet">http://&lt;YOUR_PUBLIC_IP&gt;/admin</span>. </li>
+            <li>Go to <strong>Settings → DNS</strong> tab. </li>
+            <li>Under Interface settings, select <strong>Permit all origins</strong>. </li>
+            <li>Click Save.</li>
+          </ul>
+          <strong>2.6 Configure Custom Blocklists</strong>
+          <p>Manually add the following lists in the Pi-Hole web interface (Adlists page).</p>
+          <p>
+            <strong>Lists to Enable</strong>
+          </p>
+          <ul class="setup-list">
+            <li> URL: <span class="code-snippet">https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn-social/hosts</span>
+              <br />Comment: Steven Black | Unified Host
+            </li>
+            <li>URL: <span class="code-snippet">https://big.oisd.nl</span>
+              <br />Comment: OISD | Big
+            </li>
+            <li>URL: <span class="code-snippet">https://nsfw.oisd.nl</span>
+              <br />Comment: OISD | Porn
+            </li>
+          </ul>
+          <p>
+            <strong>List to Disable (For potential whitelisting)</strong>
+          </p>
+          <ul class="setup-list">
+            <li> URL: <span class="code-snippet">https://raw.githubusercontent.com/LukeSmithxyz/etc/master/ips</span>
+              <br />Comment: Luke Smith | Master IPs
+            </li>
+          </ul>
+          <p> After adding all lists, navigate to <strong>Tools → Update Gravity</strong> to apply the new blocklists. </p>
+          <h3>Phase 3: OpenVPN Installation & Final Integration</h3>
+          <p>Install OpenVPN and configure it to use Pi-Hole for DNS.</p>
+          <strong>3.1 Install OpenVPN</strong>
+          <p>Download and run the helper script on your server.</p>
+          <div class="code-block"> curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh chmod +x openvpn-install.sh ./openvpn-install.sh </div>
+          <p>
+            <strong>Crucial Installer Selections:</strong>
+          </p>
+          <ul class="setup-list">
+            <li>Protocol: Choose <strong>UDP</strong>. </li>
+            <li>DNS (CRITICAL): Select <strong>Custom DNS</strong>. </li>
+            <li> Custom DNS IP: Enter your server's <strong>Private IP Address</strong> (e.g., <span class="code-snippet">10.0.0.X</span>). </li>
+            <li>Client Name: Choose a name (e.g., <span class="code-snippet">my-phone</span>). </li>
+          </ul>
+          <strong>3.2 Enable IP Forwarding</strong>
+          <p>Edit <span class="code-snippet">/etc/sysctl.conf</span> to enable IP forwarding permanently. </p>
+          <div class="code-block">nano /etc/sysctl.conf</div>
+          <p> Uncomment the line <span class="code-snippet">#net.ipv4.ip_forward=1</span> by removing the <span class="code-snippet">#</span>. Save and exit. Then apply: </p>
+          <div class="code-block">sysctl -p</div>
+          <strong>3.3 Move Client Config File</strong>
+          <p> Move the generated <span class="code-snippet">.ovpn</span> file to the <span class="code-snippet">ubuntu</span> user's home directory for easy download. </p>
+          <div class="code-block"> # Replace &lt;CLIENT_NAME&gt; with the name you chose in step 3.1 mv /root/&lt;CLIENT_NAME&gt;.ovpn /home/ubuntu/&lt;CLIENT_NAME&gt;.ovpn </div>
+          <strong>3.4 Download Client Config</strong>
+          <p>On your local machine's terminal, run this command to download the file:</p>
+          <div class="code-block"> # Replace placeholders, the dot (.) downloads it to the current directory scp -i /path/to/your/private-key.key ubuntu@&lt;YOUR_PUBLIC_IP&gt;:/home/ubuntu/&lt;CLIENT_NAME&gt;.ovpn . </div>
+          <strong>3.5 Test and Verify</strong>
+          <p> Import the downloaded <span class="code-snippet">.ovpn</span> file into your OpenVPN client (like OpenVPN Connect or Tunnelblick). Connect to the VPN and confirm that ads are being blocked by checking the Pi-Hole dashboard for query logs from your client's IP. </p>
+          <strong>3.6 Auto-Connect on Ubuntu (Optional)</strong>
+          <p>If using an Ubuntu desktop, run this command to manage network connections:</p>
+          <div class="code-block">nm-connection-editor</div>
+          <p> Import your <span class="code-snippet">.ovpn</span> file via the editor, then check the General tab and select 'Automatically connect to this network when it is available'. </p>
+          <h3>Phase 4: Maintenance and Updates</h3>
+          <p>Regularly update your server for security and performance.</p>
+          <strong>4.1 Comprehensive System and App Update</strong>
+          <p>Run this command as root to update the OS and Pi-Hole simultaneously.</p>
+          <div class="code-block">apt update && apt upgrade -y && apt dist-upgrade -y && pihole -up</div>
+          <strong>4.2 Update Pi-Hole Ad Lists (Gravity)</strong>
+          <p>Run this to fetch the latest version of your blocklists, ensuring up-to-date ad protection.</p>
+          <div class="code-block">pihole -g</div>
+          <strong>4.3 Restart Server</strong>
+          <p>Reboot the server after major updates or configuration changes.</p>
+          <div class="code-block">reboot</div>
+          <div class="return-node">
+            <a href="javascript:void(0)" onclick="window.scrollTo(0,0)">↑ TOP</a>
+          </div>
+        </section>
+        <!-- HOST PROJECT V2.0 FULL DETAILS -->
+        <section id="host-project-v2" class="tab-content">
+          <nav>
+            <a onclick="showTab('lab')">← Back to Lab</a>
+          </nav>
+          <h2>Host - Block the bullshit web [V2.0]</h2>
+          <p> Block advertisements, tracking scripts, and unwanted content across your devices by routing traffic through a Pi-Hole DNS resolver tunnelled via OpenVPN. This setup is hosted on the Oracle Cloud free tier. </p>
+          <p>
+            <em>Note: This guide is written for Ubuntu OS (updated Oct 2023).</em>
+          </p>
+          <div class="caution-box">
+            <strong>Caution:</strong> We will enable root access for convenience. If you are familiar with SSH, standard security practices are recommended over this approach. Proceed with caution.
+          </div>
+          <h3>1. Instance Setup</h3>
+          <ul class="setup-list">
+            <li> Create an <a href="https://www.oracle.com/cloud/free" target="_blank">Oracle Cloud Free Tier</a> account. </li>
+            <li>Setup an instance and switch the OS from Oracle Linux to <strong>Ubuntu</strong>. </li>
+            <li>Save the generated public and private keys carefully. Note your Public and Private IPs.</li>
+            <li>Log in to Shell and switch to root: <span class="code-snippet">sudo su - root</span>. </li>
+            <li>Update your root password: <span class="code-snippet">passwd root</span>. </li>
+            <li>Install Nano: <span class="code-snippet">sudo apt install nano -y</span>. </li>
+            <li>
+              <strong>Network Configuration:</strong> In the Oracle GUI, navigate to <em>Networking > Virtual Cloud Networks > vcn-XXXX > Security Lists > Default Security List</em>.
+            </li>
+            <li> Add an <strong>Ingress Rule</strong>: Source CIDR <span class="code-snippet">0.0.0.0/0</span>, Protocol <strong>UDP</strong>, Destination Port <strong>1194</strong>. </li>
+          </ul>
+          <h3>2. Software Installation</h3>
+          <p> Connect to your server locally using your private key: <span class="code-snippet">ssh -i keyfile ubuntu@PublicIP</span>. </p>
+          <ul class="setup-list">
+            <li>
+              <strong>Pi-Hole:</strong> Use the <a href="https://github.com/pi-hole/pi-hole/#one-step-automated-install" target="_blank">one-step automated install</a>. Select interface <span class="code-snippet">tun0</span>. Change password via <span class="code-snippet">sudo pihole -a -p</span>.
+            </li>
+            <li>
+              <strong>Blocklists:</strong> I recommend the <a href="https://oisd.nl/" target="_blank">OISD blocklist</a> for comprehensive coverage.
+            </li>
+            <li>
+              <strong>OpenVPN:</strong> Use the <a href="https://github.com/angristan/openvpn-install" target="_blank">Angristan script</a>. Select Port <strong>1194</strong>.
+            </li>
+          </ul>
+          <h3>3. Security & DNS Routing</h3>
+          <ul class="setup-list">
+            <li>Edit SSH config: <span class="code-snippet">sudo nano /etc/ssh/sshd_config</span>. </li>
+            <li> Set <span class="code-snippet">PasswordAuthentication yes</span> and <span class="code-snippet">PermitRootLogin yes</span> (at your own risk). </li>
+            <li> Point VPN to Pi-Hole: <span class="code-snippet">sudo nano /etc/openvpn/server.conf</span> and update to <span class="code-snippet">push "dhcp-option DNS [Pi-Hole Private IP]"</span>. </li>
+            <li>Restart SSH and the VM: <span class="code-snippet">sudo systemctl restart sshd</span>. </li>
+          </ul>
+          <h3>4. Managing Profiles & Access</h3>
+          <ul class="setup-list">
+            <li>
+              <strong>Profiles:</strong> Add/revoke certificates via <span class="code-snippet">./openvpn-install.sh</span>. Copy to home directory to download: <span class="code-snippet">cp /root/profile.ovpn /home</span>.
+            </li>
+            <li>
+              <strong>Dashboard:</strong> Connect to the VPN, then navigate to <span class="code-snippet">https://[Private IP]/admin</span> in your browser.
+            </li>
+            <li>
+              <strong>Maintenance:</strong> Periodically run <span class="code-snippet">apt update && apt upgrade</span>, <span class="code-snippet">pihole -up</span>, and <span class="code-snippet">pihole -g</span>.
+            </li>
+          </ul>
+          <p>
+            <a href="https://www.reddit.com/r/pihole/comments/oooyaj/update_perf_stats_pihole_openvpn_on_oracle_cloud/" target="_blank">View Performance Stats</a>
+          </p>
+          <div class="image-placeholder">
+            <small>User feedback on Host V2.0 performance and reliability.</small>
+            <br />
+            <img src="/asset/feedback.jpg" />
+          </div>
+          <h3>Credits</h3>
+          <p> Thanks to the folks at <a href="https://pi-hole.net/" target="_blank">Pi-Hole</a>, <a href="https://openvpn.net/" target="_blank">OpenVPN</a>, and <a href="https://github.com/angristan" target="_blank">Angristan</a>. Shout-out to the <a href="https://www.reddit.com/r/pihole/comments/omtaf3/pihole_openvpn_on_oracle_cloud_always_free_tier/" target="_blank">r/pihole community</a> and <a href="https://gitlab.com/karliskavacis" target="_blank">Karlis K</a> 🇱🇻. </p>
+          <div class="return-node">
+            <a href="javascript:void(0)" onclick="window.scrollTo(0,0)">↑ TOP</a>
+          </div>
+        </section>
+        <!-- HOST PROJECT V1.0 FULL DETAILS -->
+        <section id="host-project-v1" class="tab-content">
+          <nav>
+            <a onclick="showTab('lab')">← Back to Lab</a>
+          </nav>
+          <h2>Host - Block the bullshit web [V1.0]</h2>
+          <p> Advertisements, tracking scripts, and malicious code are constantly monitoring you. Host is a simple, effective way to block this noise—including trackers and pornographic content—using a modified Windows hosts file. </p>
+          <p> This project was inspired by the <a href="https://pxlnv.com/blog/bullshit-web/" target="_blank">"Bullshit Web"</a> concept. I've also included a quick toggle feature specifically for Windows users. </p>
+          <p>
+            <em>Note: This guide is written for Windows 10 OS (updated Jun 2020).</em>
+          </p>
+          <h3>1. Prerequisites & Resources</h3>
+          <p>You will need two main components to get started:</p>
+          <ul class="setup-list">
+            <li>
+              <strong>Unified Hosts File:</strong> A consolidated list of reputable blocking sources with duplicates removed. <a href="https://drive.google.com/file/d/14VHRlwHhfUvGLKUDpa9mBbU1hIe9Ros8/view?usp=sharing" target="_blank">Download here</a>.
+            </li>
+            <li>
+              <strong>Toggle Script (hosts.bat):</strong> A batch script to enable/disable the hosts file with a single click. <a href="https://drive.google.com/file/d/1iTQsHKjxomYp_TH0fTNAZPdtREznQz48/view?usp=sharing" target="_blank">Download here</a>.
+            </li>
+          </ul>
+          <h3>2. The Setup</h3>
+          <p>Follow these steps to configure your system for efficient blocking:</p>
+          <ul class="setup-list">
+            <li>
+              <strong>Installation:</strong> Place the downloaded <span class="code-snippet">hosts</span> file in <span class="code-snippet">C:\Windows\System32\drivers\etc</span>. Alternatively, you can fetch a specific variant from <a href="https://github.com/StevenBlack/hosts/" target="_blank">Steven Black’s GitHub repository</a>.
+            </li>
+            <li>
+              <strong>Privilege Escalation:</strong> Navigate to <span class="code-snippet">HKEY_CLASSES_ROOT\batfile\shell</span> in the Registry Editor. Change the <span class="code-snippet">(Default)</span> value to <span class="code-snippet">runas</span> to ensure batch files run with admin rights.
+            </li>
+            <li>
+              <strong>DNS Cache Opt-out:</strong> Go to <span class="code-snippet">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Dnscache</span> and set the <span class="code-snippet">Start</span> value to <span class="code-snippet">4</span>.
+            </li>
+            <li>
+              <strong>Service Check:</strong> Open <span class="code-snippet">services.msc</span> and ensure the <strong>DNS Client</strong> is set to <strong>Disabled</strong>.
+            </li>
+          </ul>
+          <h3>3. Efficient Usage</h3>
+          <p>Manual editing is tedious. Use one of these methods to toggle the hosts file instantly:</p>
+          <strong>Method 1: Direct Command</strong>
+          <ul class="method-list">
+            <li> Save <span class="code-snippet">hosts.bat</span> in <span class="code-snippet">C:\Windows\System32</span>. </li>
+            <li> Trigger it anytime via <span class="code-snippet">Win + R</span> -> type <span class="code-snippet">hosts</span> -> <span class="code-snippet">Enter</span>. </li>
+          </ul>
+          <strong>Method 2: Taskbar Shortcut</strong>
+          <ul class="method-list">
+            <li>Pin <strong>Command Prompt</strong> to your taskbar. </li>
+            <li> Hold <span class="code-snippet">SHIFT</span>, right-click the icon, and select <strong>Properties</strong>. </li>
+            <li> Change the Target to: <span class="code-snippet">%windir%\system32\cmd.exe /c "path\to\your\hosts.bat"</span>
+            </li>
+            <li>Rename it to <strong>Toggle Hosts</strong> for easy identification. </li>
+          </ul>
+          <h3>Credits</h3>
+          <p> The core logic of this project relies on the incredible work of <a href="http://stevenblack.com/" target="_blank">Steven Black</a> and his contributors. The toggle script methodology is credited to <a href="https://www.winhelponline.com/blog/automatically-elevate-batch-file-run-administrator/" target="_blank">Ramesh Srinivasan</a>. </p>
+          <div class="return-node">
+            <a href="javascript:void(0)" onclick="window.scrollTo(0,0)">↑ TOP</a>
+          </div>
+        </section>
+        <!-- RHYTHM & STATS SECTION -->
+        <section id="rhythm-stats" class="tab-content">
+          <nav>
+            <a onclick="showTab('lab')">← Back to Lab</a>
+          </nav>
+          <h2>Rhythm & Stats</h2>
+          <p>
+            <em>Mapping my live events DNA via gigs and gigabytes.</em>
+          </p>
+          <div class="chart-note">Note: The following data is single dimensional.</div>
+          <div class="charts-container">
+            <img class="chart-embed" src="/asset/Total%20Gigs%20in%202024.svg" alt="Total Gigs in 2024 Chart" />
+            <img class="chart-embed" src="/asset/From%20wishing%20to%20booking.svg" alt="From wishing to booking Chart" />
+            <img class="chart-embed" src="/asset/Diverse%20entertainment.svg" alt="Diverse entertainment Chart" />
+            <img class="chart-embed" src="/asset/Favourite%20venues.svg" alt="Favourite Venues Chart" />
+            <img class="chart-embed" src="/asset/Entry%20scenes.svg" alt="Entry scenes Chart" />
+            <img class="chart-embed" src="/asset/Experiences%20_%20Money.svg" alt="Experiences and Money Chart" />
+            <img class="chart-embed" src="/asset/Early%20bird%20got%20the%20discount.svg" alt="Early bird discount Chart" />
+            <img class="chart-embed" src="/asset/Gigs%20and%20festivals%2C%20covered%20them%20all.svg" alt="Gigs and festivals Chart" />
+            <img class="chart-embed" src="/asset/Happening%20months.svg" alt="Happening months Chart" />
+            <img class="chart-embed" src="/asset/Mondays%20same%20as%20Fridays.svg" alt="Mondays vs Fridays Chart" />
+            <img class="chart-embed" src="/asset/Happy%20hours.svg" alt="Happy hours Chart" />
+            <img class="chart-embed" src="/asset/Total%20fun%20time.svg" alt="Total fun time Chart" />
+            <img class="chart-embed" src="/asset/Tickets%20on...svg" alt="Tickets Chart" />
+          </div>
+          <div class="return-node">
+            <a href="javascript:void(0)" onclick="window.scrollTo(0,0)">↑ TOP</a>
+          </div>
+        </section>
+        <!-- QUESTIONS? SECTION -->
+        <section id="questions?" class="tab-content">
+          <dl class="questions-list">
+            <dt>Who is Floydimus? Is it your real name?</dt>
+            <dd> A pseudonym for a digital observer. Think of this site like a <a href="https://www.banksy.co.uk/" target="_blank">Banksy</a> piece: the work exists independently of the creator. I am not selling a service; I am documenting an existence. </dd>
+            <dt>What does Floydimus mean?</dt>
+            <dd> I am huge fan of an English rock act, Pink Floyd. Fans are called Floydians and I Latinised it to Floydimus. </dd>
+            <dt>Why the anonymity and lack of search indexing?</dt>
+            <dd> Privacy is a fundamental right. In an era of surveillance capitalism, remaining unindexed and unnamed is a deliberate act of freedom. Focused access ensures the site reaches only those I choose to engage with. I value substance over visibility. </dd>
+            <dt>What is the objective of this website?</dt>
+            <dd> This is a digital archive—a single source of truth for my identity, output, and outcomes. It serves as a verified credential for high-trust interactions, intentionally shared rather than publicly broadcasted. </dd>
+            <dt>As a product manager, what is your favourite product?</dt>
+            <dd> I am a spreadsheet junkie. There is a specific joy in mastering a workbook and discovering new formulas to solve old problems. </dd>
+            <dt>Are you still accepting mentorship or career guidance requests?</dt>
+            <dd>No. There are smarter people out there for that. Also, #RTFM.</dd>
+            <dt>Since you are an audiophile, do you also play any instrument?</dt>
+            <dd> I always wanted to learn and play drums, I started with a practice pad; however, I could not quite build discipline due to variety of reasons. I have settled for being a certified listener. </dd>
+            <dt>I am interested in time travel, what should I do?</dt>
+            <dd> Meet me at <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">28.06.42.12</a>, last Thursday. </dd>
+            <dt>Does invention of Microwave prove the existence of God?</dt>
+            <dd>Yes, I think so. Reheating my Ramen was indeed a spiritual experience.</dd>
+            <dd>Warrant canary.</dd>
+          </dl>
+        </section>
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="tab-content">
+          <p> For queries, creative insults, or personalised death threats, write your letters to <span class="email-text">sudo[at]prismo[dot]net</span>. </p>
+          <p>If emails don't get through, try smoke signals or sending pigeons, ask them to fly east.</p>
+        </section>undefined
+      </main>undefined
+    </div>undefined<footer>undefined<p>Copyleft <span class="copyleft">&copy;</span>
+        <span id="year-display">MMXXVI</span> Floydimus.undefined
+      </p>undefined<p>Best viewed <i>without</i> Internet Explorer.undefined</p>undefined</footer>undefined<script>
+      function updateUnix() {
+        const unixEl = document.getElementById("unix-display");
+        if (unixEl) {
+          unixEl.innerText = Math.floor(Date.now() / 1000);
+        }
+      }
+
+      function showTab(tabId) {
+        document.querySelectorAll(".tab-content").forEach((el) => el.classList.remove("active"));
+        document.querySelectorAll("#main-nav a").forEach((el) => el.classList.remove("active"));
+        const target = document.getElementById(tabId);
+        if (target) target.classList.add("active");
+        const mainLink = document.getElementById("nav-" + tabId);
+        if (mainLink) {
+          mainLink.classList.add("active");
+        } else if (tabId.startsWith("host-project") || tabId === "rhythm-stats") {
+          document.getElementById("nav-lab").classList.add("active");
+        }
+        window.scrollTo(0, 0);
+      }
+      // Initialise ticker and show about tab
+      window.onload = function() {
+        updateUnix();
+        setInterval(updateUnix, 1000);
+      };
+    </script>undefined<script>
+      (function() {
+        // Convert integer (1..3999) to Roman numerals
+        function toRoman(num) {
+          if (typeof num !== "number" || num <= 0 || num >= 4000) return "" + num;
+          const romans = [
+            [1000, "M"],
+            [900, "CM"],
+            [500, "D"],
+            [400, "CD"],
+            [100, "C"],
+            [90, "XC"],
+            [50, "L"],
+            [40, "XL"],
+            [10, "X"],
+            [9, "IX"],
+            [5, "V"],
+            [4, "IV"],
+            [1, "I"],
+          ];
+          let result = "";
+          for (let i = 0; i < romans.length; i++) {
+            const [value, letter] = romans[i];
+            while (num >= value) {
+              result += letter;
+              num -= value;
             }
-
-            body {
-                font-family:  "Courier New", Courier, monospace;
-                line-height: 1.6;
-                color: #1a1a1a;
-                background-color: #ffffff;
-                margin: 0;
-                display: flex;
-                flex-direction: column;
-                -webkit-text-size-adjust: 100%;
-            }
-
-            .container {
-                max-width: 720px;
-                margin: 0 auto;
-                padding: 40px 20px 0 20px;
-                flex: 1 0 auto;
-                width: 100%;
-                box-sizing: border-box;
-            }
-
-            header {
-                margin-bottom: 2em;
-            }
-
-            h1,
-            .sub-header,
-            nav,
-            footer {
-                font-family: "Courier New", Courier, monospace;
-                font-weight: normal;
-            }
-
-            h1 {
-                font-size: 2em; /* Reduced from 2.2em */
-                margin-bottom: 0;
-                margin-top: 0;
-                text-transform: uppercase;
-                letter-spacing: -1px;
-            }
-
-            .sub-header {
-                font-size: 0.85em;
-                color: #666;
-                margin-bottom: 1.2em;
-                display: block;
-                text-transform: lowercase;
-            }
-
-            p {
-                margin-bottom: 1.1em;
-                font-size: 1em; /* Matches body size */
-            }
-
-            a {
-                color: #0000ee;
-                text-decoration: underline;
-                transition: color 0.2s ease-in-out;
-                cursor: pointer;
-            }
-
-            a:hover {
-                color: #00008b;
-                background-color: transparent;
-                text-decoration: none;
-            }
-
-            nav {
-                margin-bottom: 0;
-                font-size: 1em;
-                padding-bottom: 4px;
-                white-space: nowrap;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-            }
-
-            nav::-webkit-scrollbar {
-                display: none;
-            }
-
-            nav a {
-                text-decoration: none;
-                margin-right: 20px;
-                cursor: pointer;
-                color: #0000ee;
-                display: inline-block;
-            }
-
-            nav a:hover {
-                color: #00008b;
-            }
-
-            nav a.active {
-                color: #1a1a1a;
-                font-weight: bold;
-                text-decoration: none;
-            }
-
-            .tab-content {
-                display: none;
-                padding-top: 0;
-            }
-            .tab-content.active {
-                display: block;
-            }
-
-            ul.index-list {
-                list-style-type: none;
-                padding: 0;
-                margin: 1em 0;
-            }
-            ul.index-list li {
-                margin-bottom: 12px;
-                display: flex;
-                align-items: baseline;
-            }
-            .date {
-                font-size: 0.85em;
-                color: #666;
-                width: 110px;
-                flex-shrink: 0;
-            }
-
-            .version-history {
-                font-size: 0.85em;
-                color: #666;
-                margin-top: 4px;
-                display: block;
-            }
-
-            ul.now-list,
-            ul.setup-list,
-            ul.method-list {
-                list-style-type: "- ";
-                padding-left: 20px;
-                margin-bottom: 1.1em;
-                font-size: 1em;
-            }
-            ul.now-list li,
-            ul.setup-list li,
-            ul.method-list li {
-                margin-bottom: 8px;
-            }
-
-            dl.questions-list {
-                margin: 0.5em 0;
-            }
-            dl.questions-list dt {
-                font-weight: normal;
-                margin-top: 2em;
-                color: #1a1a1a;
-                font-size: 1em;
-            }
-            dl.questions-list dt:first-child {
-                margin-top: 0.5em;
-            }
-            dl.questions-list dd {
-                margin-left: 0;
-                margin-bottom: 1.1em;
-                color: #444;
-                border-left: 2px solid #eee;
-                padding-left: 15px;
-                font-style: italic;
-                font-size: 0.95em;
-            }
-
-            .email-text {
-                font-weight: 600;
-                color: #1a1a1a;
-            }
-
-            h2 {
-                font-size: 1.4em; /* Reduced from 1.5em */
-                margin-top: 1.5em;
-                margin-bottom: 0.5em;
-                font-weight: normal;
-                border-bottom: 1px solid #eee;
-            }
-
-            h3 {
-                font-size: 1.05em; /* Reduced from 1.1em */
-                margin-top: 1.8em;
-                margin-bottom: 0.6em;
-                font-weight: bold;
-                color: #333;
-            }
-
-            .code-snippet {
-                background: #f9f9f9;
-                padding: 2px 4px;
-                border-radius: 4px;
-                font-family: Consolas, "Liberation Mono", Courier, monospace;
-                font-size: 0.9em;
-            }
-
-            .code-block {
-                background-color: #f4f4f4;
-                padding: 12px;
-                border-left: 3px solid #0000ee;
-                font-family: Consolas, "Liberation Mono", Courier, monospace;
-                font-size: 0.85em;
-                margin: 15px 0;
-                overflow-x: auto;
-                white-space: pre;
-            }
-
-            .caution-box {
-                background-color: #fff9f9;
-                border-left: 4px solid #ff4d4d;
-                padding: 12px;
-                margin: 20px 0;
-                font-size: 0.9em;
-            }
-
-            .chart-note {
-                font-size: 0.8em;
-                color: #777;
-                background: #fcfcfc;
-                border: 1px solid #f0f0f0;
-                padding: 10px;
-                margin: 15px 0;
-                font-style: italic;
-            }
-
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                font-size: 0.85em;
-                margin: 15px 0;
-            }
-            th,
-            td {
-                border: 1px solid #eee;
-                padding: 8px;
-                text-align: left;
-            }
-            th {
-                background-color: #f9f9f9;
-                font-weight: bold;
-            }
-
-            .chart-embed {
-                width: 100%;
-                height: 400px;
-                border: none;
-                margin-bottom: 30px;
-                background-color: #fff;
-            }
-
-            /* Back to Top mechanism */
-            .return-node {
-                display: block !important;
-                text-align: right;
-                font-size: 0.8em;
-                margin-top: 30px;
-                margin-bottom: 10px;
-                font-family: "Courier New", Courier, monospace;
-            }
-            .return-node a {
-                text-decoration: none;
-                color: #666;
-                cursor: pointer;
-            }
-            .return-node a:hover {
-                background-color: transparent;
-                color: #1a1a1a;
-                text-decoration: none;
-            }
-
-            /* Responsive Image Handling */
-            img {
-                max-width: 100%; /* Image will never exceed its container width */
-                height: auto; /* Maintains aspect ratio so images don't look stretched */
-                display: block; /* Removes weird bottom gaps common with inline elements */
-                margin-left: 0;
-                margin-right: auto; /* Ensures no centering from parent containers */
-            }
-
-            /* Specific styling for your charts */
-            .chart-embed {
-                width: 100%; /* Forces SVGs to fill the container width */
-                max-width: 680px; /* Prevents them from getting too large on big screens */
-                border: 1px solid #eee; /* Optional: adds a subtle frame */
-                padding: 10px;
-            }
-
-            footer {
-                flex-shrink: 0;
-                margin-top: 2em;
-                padding: 20px;
-                font-size: 0.8em; /* Reduced from 0.85em */
-                color: #666;
-                text-align: center;
-                width: 100%;
-                max-width: 720px;
-                margin-left: auto;
-                margin-right: auto;
-                border-top: 1px solid #eee;
-                box-sizing: border-box;
-                line-height: 1.3;
-            }
-
-            footer p {
-                margin: 6px 0;
-            }
-
-            .copyleft {
-                display: inline-block;
-                transform: rotate(180deg);
-            }
-
-            .unix-time {
-                font-size: 0.8em;
-                color: #888;
-                margin-top: 2em;
-                border-top: 1px dashed #eee;
-                padding-top: 1em;
-            }
-
-            .batteries-note {
-                font-size: 0.8em;
-                color: #666;
-                margin-top: 2em;
-                font-style: italic;
-            }
-
-            @media (max-width: 600px) {
-                html,
-                body {
-                    font-size: 15px;
-                }
-                .container {
-                    padding: 30px 20px 0 20px;
-                }
-                .date {
-                    width: 90px;
-                }
-                .chart-embed {
-                    height: 300px;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <header>
-                <h1>FLOYDIMUS</h1>
-                <span class="sub-header">son // husband // audiophile // open-source evangelist </span>
-                <nav id="main-nav">
-                    <a onclick="showTab('about')" id="nav-about" class="active">About</a>
-                    <a onclick="showTab('now')" id="nav-now">Now</a>
-                    <a onclick="showTab('lab')" id="nav-lab">Lab</a>
-                    <a onclick="showTab('questions?')" id="nav-questions?">Questions?</a>
-                    <a onclick="showTab('contact')" id="nav-contact">Contact</a>
-                </nav>
-            </header>
-
-            <main>
-                <!-- ABOUT SECTION -->
-                <section id="about" class="tab-content active">
-                    <p>
-                        Greetings! I am Floydimus, cruising with curiosity and a heart full of joy; thank you for
-                        dropping by.
-                    </p>
-                    <p>I am a creator in a world of consumers—an observer, a free thinker, and a curious soul.</p>
-                    <p>
-                        As a life-long learner, I believe that knowledge should be freely available and accessible to
-                        all and only through diversity can we truly build a better world.
-                    </p>
-                    <p>
-                        Oddly enough, I get emotional over fonts and colours as I have a soft spot for clean and
-                        simple design.
-                    </p>
-
-                    <div class="unix-time">UNIX: <span id="unix-display">0000000000</span></div>
-                </section>
-
-                <!-- NOW SECTION -->
-                <section id="now" class="tab-content">
-                    <p>
-                        In a parallel universe, I am an anthropologist, archaeologist, sound engineer, or a beachside
-                        burger-joint owner playing rock & roll all day.
-                    </p>
-                    <p>
-                        In this reality, I am a product management professional specialising in consumer internet,
-                        metric optimisation, and building high-performing teams where I find genuine joy in my craft of
-                        solving problems for both people and the planet.
-                    </p>
-                    <p>
-                        Grounded in first principles, experimentation, and a customer-centric mindset, I lead products
-                        from inception to maturity— turning concepts into high-impact, scalable solutions.
-                    </p>
-                    <p>
-                        Beyond the screen, I enjoy waterfronts, museums, art galleries, and rock concerts—wherever the
-                        distorted guitar is the main theme.
-                    </p>
-                    <p>
-                        While I am fascinated by the cosmos, spaceship engineering, and rocket launches, I also enjoy
-                        conversations about history, technology, and time-travel, a wonder for the past and future.
-                    </p>
-
-                    <p>For <a href="https://sivers.org/nowff" target="_blank">now</a>, I am:</p>
-                    <ul class="now-list">
-                        <li>Building a memorable life with my partner.</li>
-                        <li>Leading product managers as a group product head in entertainment tech.</li>
-                        <li>
-                            Supporting
-                            <a href="https://en.wikipedia.org/wiki/Free_software_movement" target="_blank"
-                                >free software</a
-                            >
-                            and
-                            <a href="https://en.wikipedia.org/wiki/Net_neutrality" target="_blank">net neutrality</a>
-                            movements.
-                        </li>
-                    </ul>
-                </section>
-
-                <!-- LAB SECTION -->
-                <section id="lab" class="tab-content">
-                    <ul class="index-list">
-                        <li>
-                            <span class="date">Jan 2026</span>
-                            <span
-                                ><a href="https://github.com/Floydimus02/Prismo" target="_blank">Prismo</a> — A lunar
-                                Monochrome, inspired by the stark clarity of the lunar landscapes, Prismo is a
-                                minimalist, high-contrast personal branding page designed for those
-                                who prioritise digital sovereignty, simplicity, and the index style aesthetic of the
-                                early internet, rejecting modern web bloat—function over form.</span
-                            >
-                        </li>
-                        <li>
-                            <span class="date">Dec 2025</span>
-                            <span>
-                                <a onclick="showTab('host-project-v3')" style="cursor: pointer"
-                                    >Host - Block the bullshit web [V3.0]</a
-                                >
-                                — Block advertisements and trackers across network via Oracle cloud using Pi-Hole &
-                                OpenVPN, for free.
-                                <span class="version-history"
-                                    >Prev: <a onclick="showTab('host-project-v2')" style="cursor: pointer">V2.0</a>,
-                                    <a onclick="showTab('host-project-v1')" style="cursor: pointer">V1.0</a></span
-                                >
-                            </span>
-                        </li>
-                        <li>
-                            <span class="date">Jan 2024</span>
-                            <span
-                                ><a onclick="showTab('rhythm-stats')" style="cursor: pointer">Rhythm & Stats</a> —
-                                Mapping my live events DNA via gigs and gigabytes.</span
-                            >
-                        </li>
-                        <li>
-                            <span class="date">May 2021</span>
-                            <span
-                                ><a href="https://gitlab.com/Floydimus/sound-of-atoms" target="_blank"
-                                    >Sound of Atoms</a
-                                >
-                                — Jump into the world of unknown and explore music [Abandonware].</span
-                            >
-                        </li>
-                        <li>
-                            <span class="date">Jun 2020</span>
-                            <span
-                                ><a href="https://www.tap.prismo.net/backstage" target="_blank"
-                                    >TAP - The Art Project</a
-                                >
-                                — A platform to find and enjoy away from the keyboard (AFK) life experiences.</span
-                            >
-                        </li>
-                        <li>
-                            <span class="date">Mar 2020</span>
-                            <span
-                                ><a href="https://www.covid19india.org/volunteers" target="_blank">covid19india.org</a>
-                                — A volunteer driven, crowd-sourced tracker for COVID-19 cases in India.</span
-                            >
-                        </li>
-                        <li>
-                            <span class="date">Sep 2019</span>
-                            <span
-                                ><a href="https://sites.google.com/view/productx/home" target="_blank">ProductX.io</a> —
-                                A free knowledge repository to enter and grow in the field of product management.</span
-                            >
-                        </li>
-                        <li>
-                            <span class="date">May 2019</span>
-                            <span
-                                ><a href="https://github.com/Floydimus02/hazmat" target="_blank">Hazmat</a> — An open
-                                source browser extension to filter unwanted subreddits from r/Popular.</span
-                            >
-                        </li>
-                        <li>
-                            <span class="date">Jan 2018</span>
-                            <span
-                                ><a href="https://gitlab.com/Floydimus/ThankYouWikipedia" target="_blank"
-                                    >#ThankYouWikipedia</a
-                                >
-                                — A tribute Twitter bot periodically tweeting a random Wikipedia article. Discontinued due to Twitter's API restrictions.</span
-                            >
-                        </li>
-                    </ul>
-                    <div class="batteries-note">Batteries included.</div>
-                </section>
-
-                <!-- HOST PROJECT V3.0 DETAILS -->
-                <section id="host-project-v3" class="tab-content">
-                    <nav>
-                        <a onclick="showTab('lab')">← Back to Lab</a>
-                    </nav>
-                    <h2>Host - Block the bullshit web [V3.0]</h2>
-                    <p>
-                        Advertisements, tracking scripts and other countless lines of code downloaded on to your machine
-                        to spam and monitor you whenever you connect to the internet.
-                    </p>
-                    <p>
-                        This version leverages Oracle Cloud Infrastructure to host a Pi-Hole instance connected via
-                        OpenVPN, providing network-wide blocking for all your connected devices.
-                    </p>
-
-                    <p><em>Note: This guide is written for Ubuntu OS (updated Dec 2025).</em></p>
-
-                    <h3>Phase 1: Oracle Cloud Infrastructure Setup</h3>
-                    <p>
-                        Initial setup of the virtual machine and network configuration within the Oracle Cloud console.
-                    </p>
-
-                    <strong>1.1 Create a Virtual Cloud Network (VCN)</strong>
-                    <ul class="setup-list">
-                        <li>Log in to your Oracle Cloud account.</li>
-                        <li>Navigate to <strong>Networking → Virtual Cloud Networks</strong>.</li>
-                        <li>Click <strong>Start VCN Wizard</strong>.</li>
-                        <li>
-                            Select <strong>VCN with Internet Connectivity</strong> and click Start VCN Wizard again.
-                        </li>
-                        <li>
-                            Give your VCN a name (e.g., <span class="code-snippet">vpn-vcn</span>). Click Next, then
-                            Create.
-                        </li>
-                    </ul>
-
-                    <strong>1.2 Create a Compute Instance</strong>
-                    <ul class="setup-list">
-                        <li>Navigate to <strong>Compute → Instances</strong> and click Create Instance.</li>
-                        <li>Name: <span class="code-snippet">vpn-server</span>.</li>
-                        <li>
-                            Image and shape: Click Edit.
-                            <ul>
-                                <li>Image: Select Canonical Ubuntu (latest LTS version).</li>
-                                <li>
-                                    Shape: Select Ampere series and the
-                                    <span class="code-snippet">VM.Standard.A1.Flex</span> shape.
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            Networking: Ensure your new VCN (<span class="code-snippet">vpn-vcn</span>) and the public
-                            subnet are selected.
-                        </li>
-                        <li>
-                            Add SSH keys: Choose <strong>Generate a key pair for me</strong> and save the private key.
-                        </li>
-                        <li>Click Create.</li>
-                    </ul>
-
-                    <strong>1.3 Configure Network Security Rules</strong>
-                    <p>
-                        Navigate to your VCN → Security Lists → Default Security List. Add the following Ingress Rules:
-                    </p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Source CIDR</th>
-                                <th>IP Protocol</th>
-                                <th>Port Range</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>0.0.0.0/0</td>
-                                <td>UDP</td>
-                                <td>1194</td>
-                                <td>OpenVPN</td>
-                            </tr>
-                            <tr>
-                                <td>0.0.0.0/0</td>
-                                <td>TCP</td>
-                                <td>80</td>
-                                <td>Pi-Hole Web UI (HTTP)</td>
-                            </tr>
-                            <tr>
-                                <td>0.0.0.0/0</td>
-                                <td>TCP</td>
-                                <td>443</td>
-                                <td>Pi-Hole Web UI (HTTPS)</td>
-                            </tr>
-                            <tr>
-                                <td>0.0.0.0/0</td>
-                                <td>UDP</td>
-                                <td>53</td>
-                                <td>Pi-Hole DNS (UDP)</td>
-                            </tr>
-                            <tr>
-                                <td>0.0.0.0/0</td>
-                                <td>TCP</td>
-                                <td>53</td>
-                                <td>Pi-Hole DNS (TCP)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h3>Phase 2: Software Installation & Configuration</h3>
-                    <p>Connect to your server and install the necessary software.</p>
-
-                    <strong>2.1 Connect & Elevate</strong>
-                    <p>Connect to your server using the public IP and the private key you downloaded.</p>
-                    <div class="code-block">
-                        chmod 400 /path/to/your/private-key.key ssh -i /path/to/your/private-key.key
-                        ubuntu@&lt;YOUR_PUBLIC_IP&gt;
-                    </div>
-                    <p>Immediately after connecting, switch to the root user.</p>
-                    <div class="code-block">sudo su - root</div>
-
-                    <strong>2.2 System Update</strong>
-                    <p>Update all system packages.</p>
-                    <div class="code-block">apt update && apt upgrade -y</div>
-
-                    <strong>2.3 Configure OS Firewall (UFW)</strong>
-                    <p>Configure the server's local firewall to mirror the OCI security list.</p>
-                    <div class="code-block">
-                        apt install -y ufw ufw allow 22/tcp comment 'SSH Access' ufw allow 80/tcp comment 'Pi-Hole Web
-                        UI HTTP' ufw allow 443/tcp comment 'Pi-Hole Web UI HTTPS' ufw allow 1194/udp comment 'OpenVPN
-                        UDP' ufw allow 53/tcp comment 'Pi-Hole DNS TCP' ufw allow 53/udp comment 'Pi-Hole DNS UDP' ufw
-                        --force enable
-                    </div>
-
-                    <strong>2.4 Install Pi-Hole</strong>
-                    <p>Run the official Pi-Hole installation script.</p>
-                    <div class="code-block">curl -sSL https://install.pi-hole.net | bash</div>
-
-                    <p><strong>Installer Prompts Summary:</strong></p>
-                    <ul class="setup-list">
-                        <li>Upstream DNS: Choose any provider (e.g., Google).</li>
-                        <li>Block Lists: Accept the default.</li>
-                        <li>Protocols: Select both IPv4 and IPv6.</li>
-                        <li>Accept defaults for the rest. Save the admin password shown at the end.</li>
-                    </ul>
-
-                    <p>Set a new, strong admin password immediately.</p>
-                    <div class="code-block">pihole setpassword</div>
-
-                    <strong>2.5 Configure Pi-Hole for VPN</strong>
-                    <p>This setting is crucial for allowing VPN clients to use Pi-Hole as their DNS server.</p>
-                    <ul class="setup-list">
-                        <li>
-                            Log in to the Pi-Hole web admin UI at
-                            <span class="code-snippet">http://&lt;YOUR_PUBLIC_IP&gt;/admin</span>.
-                        </li>
-                        <li>Go to <strong>Settings → DNS</strong> tab.</li>
-                        <li>Under Interface settings, select <strong>Permit all origins</strong>.</li>
-                        <li>Click Save.</li>
-                    </ul>
-
-                    <strong>2.6 Configure Custom Blocklists</strong>
-                    <p>Manually add the following lists in the Pi-Hole web interface (Adlists page).</p>
-
-                    <p><strong>Lists to Enable</strong></p>
-                    <ul class="setup-list">
-                        <li>
-                            URL:
-                            <span class="code-snippet"
-                                >https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn-social/hosts</span
-                            ><br />Comment: Steven Black | Unified Host
-                        </li>
-                        <li>URL: <span class="code-snippet">https://big.oisd.nl</span><br />Comment: OISD | Big</li>
-                        <li>URL: <span class="code-snippet">https://nsfw.oisd.nl</span><br />Comment: OISD | Porn</li>
-                    </ul>
-
-                    <p><strong>List to Disable (For potential whitelisting)</strong></p>
-                    <ul class="setup-list">
-                        <li>
-                            URL:
-                            <span class="code-snippet"
-                                >https://raw.githubusercontent.com/LukeSmithxyz/etc/master/ips</span
-                            ><br />Comment: Luke Smith | Master IPs
-                        </li>
-                    </ul>
-
-                    <p>
-                        After adding all lists, navigate to <strong>Tools → Update Gravity</strong> to apply the new
-                        blocklists.
-                    </p>
-
-                    <h3>Phase 3: OpenVPN Installation & Final Integration</h3>
-                    <p>Install OpenVPN and configure it to use Pi-Hole for DNS.</p>
-
-                    <strong>3.1 Install OpenVPN</strong>
-                    <p>Download and run the helper script on your server.</p>
-                    <div class="code-block">
-                        curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
-                        chmod +x openvpn-install.sh ./openvpn-install.sh
-                    </div>
-
-                    <p><strong>Crucial Installer Selections:</strong></p>
-                    <ul class="setup-list">
-                        <li>Protocol: Choose <strong>UDP</strong>.</li>
-                        <li>DNS (CRITICAL): Select <strong>Custom DNS</strong>.</li>
-                        <li>
-                            Custom DNS IP: Enter your server's <strong>Private IP Address</strong> (e.g.,
-                            <span class="code-snippet">10.0.0.X</span>).
-                        </li>
-                        <li>Client Name: Choose a name (e.g., <span class="code-snippet">my-phone</span>).</li>
-                    </ul>
-
-                    <strong>3.2 Enable IP Forwarding</strong>
-                    <p>Edit <span class="code-snippet">/etc/sysctl.conf</span> to enable IP forwarding permanently.</p>
-                    <div class="code-block">nano /etc/sysctl.conf</div>
-                    <p>
-                        Uncomment the line <span class="code-snippet">#net.ipv4.ip_forward=1</span> by removing the
-                        <span class="code-snippet">#</span>. Save and exit. Then apply:
-                    </p>
-                    <div class="code-block">sysctl -p</div>
-
-                    <strong>3.3 Move Client Config File</strong>
-                    <p>
-                        Move the generated <span class="code-snippet">.ovpn</span> file to the
-                        <span class="code-snippet">ubuntu</span> user's home directory for easy download.
-                    </p>
-                    <div class="code-block">
-                        # Replace &lt;CLIENT_NAME&gt; with the name you chose in step 3.1 mv
-                        /root/&lt;CLIENT_NAME&gt;.ovpn /home/ubuntu/&lt;CLIENT_NAME&gt;.ovpn
-                    </div>
-
-                    <strong>3.4 Download Client Config</strong>
-                    <p>On your local machine's terminal, run this command to download the file:</p>
-                    <div class="code-block">
-                        # Replace placeholders, the dot (.) downloads it to the current directory scp -i
-                        /path/to/your/private-key.key
-                        ubuntu@&lt;YOUR_PUBLIC_IP&gt;:/home/ubuntu/&lt;CLIENT_NAME&gt;.ovpn .
-                    </div>
-
-                    <strong>3.5 Test and Verify</strong>
-                    <p>
-                        Import the downloaded <span class="code-snippet">.ovpn</span> file into your OpenVPN client
-                        (like OpenVPN Connect or Tunnelblick). Connect to the VPN and confirm that ads are being blocked
-                        by checking the Pi-Hole dashboard for query logs from your client's IP.
-                    </p>
-
-                    <strong>3.6 Auto-Connect on Ubuntu (Optional)</strong>
-                    <p>If using an Ubuntu desktop, run this command to manage network connections:</p>
-                    <div class="code-block">nm-connection-editor</div>
-                    <p>
-                        Import your <span class="code-snippet">.ovpn</span> file via the editor, then check the General
-                        tab and select 'Automatically connect to this network when it is available'.
-                    </p>
-
-                    <h3>Phase 4: Maintenance and Updates</h3>
-                    <p>Regularly update your server for security and performance.</p>
-
-                    <strong>4.1 Comprehensive System and App Update</strong>
-                    <p>Run this command as root to update the OS and Pi-Hole simultaneously.</p>
-                    <div class="code-block">apt update && apt upgrade -y && apt dist-upgrade -y && pihole -up</div>
-
-                    <strong>4.2 Update Pi-Hole Ad Lists (Gravity)</strong>
-                    <p>Run this to fetch the latest version of your blocklists, ensuring up-to-date ad protection.</p>
-                    <div class="code-block">pihole -g</div>
-
-                    <strong>4.3 Restart Server</strong>
-                    <p>Reboot the server after major updates or configuration changes.</p>
-                    <div class="code-block">reboot</div>
-
-                    <div class="return-node">
-                        <a href="javascript:void(0)" onclick="window.scrollTo(0,0)">↑ TOP</a>
-                    </div>
-                </section>
-
-                <!-- HOST PROJECT V2.0 FULL DETAILS -->
-                <section id="host-project-v2" class="tab-content">
-                    <nav>
-                        <a onclick="showTab('lab')">← Back to Lab</a>
-                    </nav>
-                    <h2>Host - Block the bullshit web [V2.0]</h2>
-                    <p>
-                        Block advertisements, tracking scripts, and unwanted content across your devices by routing
-                        traffic through a Pi-Hole DNS resolver tunnelled via OpenVPN. This setup is hosted on the Oracle
-                        Cloud free tier.
-                    </p>
-                    <p><em>Note: This guide is written for Ubuntu OS (updated Oct 2023).</em></p>
-
-                    <div class="caution-box">
-                        <strong>Caution:</strong> We will enable root access for convenience. If you are familiar with
-                        SSH, standard security practices are recommended over this approach. Proceed with caution.
-                    </div>
-
-                    <h3>1. Instance Setup</h3>
-                    <ul class="setup-list">
-                        <li>
-                            Create an
-                            <a href="https://www.oracle.com/cloud/free" target="_blank">Oracle Cloud Free Tier</a>
-                            account.
-                        </li>
-                        <li>Setup an instance and switch the OS from Oracle Linux to <strong>Ubuntu</strong>.</li>
-                        <li>Save the generated public and private keys carefully. Note your Public and Private IPs.</li>
-                        <li>Log in to Shell and switch to root: <span class="code-snippet">sudo su - root</span>.</li>
-                        <li>Update your root password: <span class="code-snippet">passwd root</span>.</li>
-                        <li>Install Nano: <span class="code-snippet">sudo apt install nano -y</span>.</li>
-                        <li>
-                            <strong>Network Configuration:</strong> In the Oracle GUI, navigate to
-                            <em
-                                >Networking > Virtual Cloud Networks > vcn-XXXX > Security Lists > Default Security
-                                List</em
-                            >.
-                        </li>
-                        <li>
-                            Add an <strong>Ingress Rule</strong>: Source CIDR
-                            <span class="code-snippet">0.0.0.0/0</span>, Protocol <strong>UDP</strong>, Destination Port
-                            <strong>1194</strong>.
-                        </li>
-                    </ul>
-
-                    <h3>2. Software Installation</h3>
-                    <p>
-                        Connect to your server locally using your private key:
-                        <span class="code-snippet">ssh -i keyfile ubuntu@PublicIP</span>.
-                    </p>
-                    <ul class="setup-list">
-                        <li>
-                            <strong>Pi-Hole:</strong> Use the
-                            <a href="https://github.com/pi-hole/pi-hole/#one-step-automated-install" target="_blank"
-                                >one-step automated install</a
-                            >. Select interface <span class="code-snippet">tun0</span>. Change password via
-                            <span class="code-snippet">sudo pihole -a -p</span>.
-                        </li>
-                        <li>
-                            <strong>Blocklists:</strong> I recommend the
-                            <a href="https://oisd.nl/" target="_blank">OISD blocklist</a> for comprehensive coverage.
-                        </li>
-                        <li>
-                            <strong>OpenVPN:</strong> Use the
-                            <a href="https://github.com/angristan/openvpn-install" target="_blank">Angristan script</a>.
-                            Select Port <strong>1194</strong>.
-                        </li>
-                    </ul>
-
-                    <h3>3. Security & DNS Routing</h3>
-                    <ul class="setup-list">
-                        <li>Edit SSH config: <span class="code-snippet">sudo nano /etc/ssh/sshd_config</span>.</li>
-                        <li>
-                            Set <span class="code-snippet">PasswordAuthentication yes</span> and
-                            <span class="code-snippet">PermitRootLogin yes</span> (at your own risk).
-                        </li>
-                        <li>
-                            Point VPN to Pi-Hole:
-                            <span class="code-snippet">sudo nano /etc/openvpn/server.conf</span> and update to
-                            <span class="code-snippet">push "dhcp-option DNS [Pi-Hole Private IP]"</span>.
-                        </li>
-                        <li>Restart SSH and the VM: <span class="code-snippet">sudo systemctl restart sshd</span>.</li>
-                    </ul>
-
-                    <h3>4. Managing Profiles & Access</h3>
-                    <ul class="setup-list">
-                        <li>
-                            <strong>Profiles:</strong> Add/revoke certificates via
-                            <span class="code-snippet">./openvpn-install.sh</span>. Copy to home directory to download:
-                            <span class="code-snippet">cp /root/profile.ovpn /home</span>.
-                        </li>
-                        <li>
-                            <strong>Dashboard:</strong> Connect to the VPN, then navigate to
-                            <span class="code-snippet">https://[Private IP]/admin</span> in your browser.
-                        </li>
-                        <li>
-                            <strong>Maintenance:</strong> Periodically run
-                            <span class="code-snippet">apt update && apt upgrade</span>,
-                            <span class="code-snippet">pihole -up</span>, and
-                            <span class="code-snippet">pihole -g</span>.
-                        </li>
-                    </ul>
-
-                    <p>
-                        <a
-                            href="https://www.reddit.com/r/pihole/comments/oooyaj/update_perf_stats_pihole_openvpn_on_oracle_cloud/"
-                            target="_blank"
-                            >View Performance Stats</a
-                        >
-                    </p>
-
-                    <div class="image-placeholder">
-                        <small>User feedback on Host V2.0 performance and reliability.</small><br />
-                        <img src="/asset/feedback.jpg" />
-                    </div>
-
-                    <h3>Credits</h3>
-                    <p>
-                        Thanks to the folks at <a href="https://pi-hole.net/" target="_blank">Pi-Hole</a>,
-                        <a href="https://openvpn.net/" target="_blank">OpenVPN</a>, and
-                        <a href="https://github.com/angristan" target="_blank">Angristan</a>. Shout-out to the
-                        <a
-                            href="https://www.reddit.com/r/pihole/comments/omtaf3/pihole_openvpn_on_oracle_cloud_always_free_tier/"
-                            target="_blank"
-                            >r/pihole community</a
-                        >
-                        and <a href="https://gitlab.com/karliskavacis" target="_blank">Karlis K</a> 🇱🇻.
-                    </p>
-
-                    <div class="return-node">
-                        <a href="javascript:void(0)" onclick="window.scrollTo(0,0)">↑ TOP</a>
-                    </div>
-                </section>
-
-                <!-- HOST PROJECT V1.0 FULL DETAILS -->
-                <section id="host-project-v1" class="tab-content">
-                    <nav>
-                        <a onclick="showTab('lab')">← Back to Lab</a>
-                    </nav>
-                    <h2>Host - Block the bullshit web [V1.0]</h2>
-                    <p>
-                        Advertisements, tracking scripts, and malicious code are constantly monitoring you. Host is a
-                        simple, effective way to block this noise—including trackers and pornographic content—using a
-                        modified Windows hosts file.
-                    </p>
-                    <p>
-                        This project was inspired by the
-                        <a href="https://pxlnv.com/blog/bullshit-web/" target="_blank">"Bullshit Web"</a> concept. I've
-                        also included a quick toggle feature specifically for Windows users.
-                    </p>
-
-                    <p><em>Note: This guide is written for Windows 10 OS (updated Jun 2020).</em></p>
-
-                    <h3>1. Prerequisites & Resources</h3>
-                    <p>You will need two main components to get started:</p>
-                    <ul class="setup-list">
-                        <li>
-                            <strong>Unified Hosts File:</strong> A consolidated list of reputable blocking sources with
-                            duplicates removed.
-                            <a
-                                href="https://drive.google.com/file/d/14VHRlwHhfUvGLKUDpa9mBbU1hIe9Ros8/view?usp=sharing"
-                                target="_blank"
-                                >Download here</a
-                            >.
-                        </li>
-                        <li>
-                            <strong>Toggle Script (hosts.bat):</strong> A batch script to enable/disable the hosts file
-                            with a single click.
-                            <a
-                                href="https://drive.google.com/file/d/1iTQsHKjxomYp_TH0fTNAZPdtREznQz48/view?usp=sharing"
-                                target="_blank"
-                                >Download here</a
-                            >.
-                        </li>
-                    </ul>
-
-                    <h3>2. The Setup</h3>
-                    <p>Follow these steps to configure your system for efficient blocking:</p>
-                    <ul class="setup-list">
-                        <li>
-                            <strong>Installation:</strong> Place the downloaded
-                            <span class="code-snippet">hosts</span> file in
-                            <span class="code-snippet">C:\Windows\System32\drivers\etc</span>. Alternatively, you can
-                            fetch a specific variant from
-                            <a href="https://github.com/StevenBlack/hosts/" target="_blank"
-                                >Steven Black’s GitHub repository</a
-                            >.
-                        </li>
-                        <li>
-                            <strong>Privilege Escalation:</strong> Navigate to
-                            <span class="code-snippet">HKEY_CLASSES_ROOT\batfile\shell</span> in the Registry Editor.
-                            Change the <span class="code-snippet">(Default)</span> value to
-                            <span class="code-snippet">runas</span> to ensure batch files run with admin rights.
-                        </li>
-                        <li>
-                            <strong>DNS Cache Opt-out:</strong> Go to
-                            <span class="code-snippet"
-                                >HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Dnscache</span
-                            >
-                            and set the <span class="code-snippet">Start</span> value to
-                            <span class="code-snippet">4</span>.
-                        </li>
-                        <li>
-                            <strong>Service Check:</strong> Open <span class="code-snippet">services.msc</span> and
-                            ensure the <strong>DNS Client</strong> is set to <strong>Disabled</strong>.
-                        </li>
-                    </ul>
-
-                    <h3>3. Efficient Usage</h3>
-                    <p>Manual editing is tedious. Use one of these methods to toggle the hosts file instantly:</p>
-
-                    <strong>Method 1: Direct Command</strong>
-                    <ul class="method-list">
-                        <li>
-                            Save <span class="code-snippet">hosts.bat</span> in
-                            <span class="code-snippet">C:\Windows\System32</span>.
-                        </li>
-                        <li>
-                            Trigger it anytime via <span class="code-snippet">Win + R</span> -> type
-                            <span class="code-snippet">hosts</span> -> <span class="code-snippet">Enter</span>.
-                        </li>
-                    </ul>
-
-                    <strong>Method 2: Taskbar Shortcut</strong>
-                    <ul class="method-list">
-                        <li>Pin <strong>Command Prompt</strong> to your taskbar.</li>
-                        <li>
-                            Hold <span class="code-snippet">SHIFT</span>, right-click the icon, and select
-                            <strong>Properties</strong>.
-                        </li>
-                        <li>
-                            Change the Target to:
-                            <span class="code-snippet">%windir%\system32\cmd.exe /c "path\to\your\hosts.bat"</span>
-                        </li>
-                        <li>Rename it to <strong>Toggle Hosts</strong> for easy identification.</li>
-                    </ul>
-
-                    <h3>Credits</h3>
-                    <p>
-                        The core logic of this project relies on the incredible work of
-                        <a href="http://stevenblack.com/" target="_blank">Steven Black</a> and his contributors. The
-                        toggle script methodology is credited to
-                        <a
-                            href="https://www.winhelponline.com/blog/automatically-elevate-batch-file-run-administrator/"
-                            target="_blank"
-                            >Ramesh Srinivasan</a
-                        >.
-                    </p>
-
-                    <div class="return-node">
-                        <a href="javascript:void(0)" onclick="window.scrollTo(0,0)">↑ TOP</a>
-                    </div>
-                </section>
-
-                <!-- RHYTHM & STATS SECTION -->
-                <section id="rhythm-stats" class="tab-content">
-                    <nav>
-                        <a onclick="showTab('lab')">← Back to Lab</a>
-                    </nav>
-                    <h2>Rhythm & Stats</h2>
-                    <p><em>Mapping my live events DNA via gigs and gigabytes.</em></p>
-
-                    <div class="chart-note">Note: The following data is single dimensional.</div>
-
-                    <div class="charts-container">
-                        <img
-                            class="chart-embed"
-                            src="/asset/Total%20Gigs%20in%202024.svg"
-                            alt="Total Gigs in 2024 Chart"
-                        />
-                        <img
-                            class="chart-embed"
-                            src="/asset/From%20wishing%20to%20booking.svg"
-                            alt="From wishing to booking Chart"
-                        />
-                        <img
-                            class="chart-embed"
-                            src="/asset/Diverse%20entertainment.svg"
-                            alt="Diverse entertainment Chart"
-                        />
-                        <img class="chart-embed" src="/asset/Favourite%20venues.svg" alt="Favourite Venues Chart" />
-                        <img class="chart-embed" src="/asset/Entry%20scenes.svg" alt="Entry scenes Chart" />
-                        <img
-                            class="chart-embed"
-                            src="/asset/Experiences%20_%20Money.svg"
-                            alt="Experiences and Money Chart"
-                        />
-                        <img
-                            class="chart-embed"
-                            src="/asset/Early%20bird%20got%20the%20discount.svg"
-                            alt="Early bird discount Chart"
-                        />
-                        <img
-                            class="chart-embed"
-                            src="/asset/Gigs%20and%20festivals%2C%20covered%20them%20all.svg"
-                            alt="Gigs and festivals Chart"
-                        />
-                        <img class="chart-embed" src="/asset/Happening%20months.svg" alt="Happening months Chart" />
-                        <img
-                            class="chart-embed"
-                            src="/asset/Mondays%20same%20as%20Fridays.svg"
-                            alt="Mondays vs Fridays Chart"
-                        />
-                        <img class="chart-embed" src="/asset/Happy%20hours.svg" alt="Happy hours Chart" />
-                        <img class="chart-embed" src="/asset/Total%20fun%20time.svg" alt="Total fun time Chart" />
-                        <img class="chart-embed" src="/asset/Tickets%20on...svg" alt="Tickets Chart" />
-                    </div>
-
-                    <div class="return-node">
-                        <a href="javascript:void(0)" onclick="window.scrollTo(0,0)">↑ TOP</a>
-                    </div>
-                </section>
-
-                <!-- QUESTIONS? SECTION -->
-                <section id="questions?" class="tab-content">
-                    <dl class="questions-list">
-                        <dt>Who is Floydimus? Is it your real name?</dt>
-                        <dd>
-                            A pseudonym for a digital observer. Think of this site like a
-                            <a href="https://www.banksy.co.uk/" target="_blank">Banksy</a> piece: the work exists
-                            independently of the creator. I am not selling a service; I am documenting an existence.
-                        </dd>
-                        <dt>What does Floydimus mean?</dt>
-                        <dd>
-                            I am huge fan of an English rock act, Pink Floyd. Fans are called Floydians and I Latinised
-                            it to Floydimus.
-                        </dd>
-                        <dt>Why the anonymity and lack of search indexing?</dt>
-                        <dd>
-                            Privacy is a fundamental right. In an era of surveillance capitalism, remaining unindexed
-                            and unnamed is a deliberate act of freedom. Focused access ensures the site reaches only
-                            those I choose to engage with. I value substance over visibility.
-                        </dd>
-                        <dt>What is the objective of this website?</dt>
-                        <dd>
-                            This is a digital archive—a single source of truth for my identity, output, and outcomes. It
-                            serves as a verified credential for high-trust interactions, intentionally shared rather
-                            than publicly broadcasted.
-                        </dd>
-                        <dt>As a product manager, what is your favourite product?</dt>
-                        <dd>
-                            I am a spreadsheet junkie. There is a specific joy in mastering a workbook and discovering
-                            new formulas to solve old problems.
-                        </dd>
-                        <dt>Are you still accepting mentorship or career guidance requests?</dt>
-                        <dd>No. There are smarter people out there for that. Also, #RTFM.</dd>
-                        <dt>Since you are an audiophile, do you also play any instrument?</dt>
-                        <dd>
-                            I always wanted to learn and play drums, I started with a practice pad; however, I could not
-                            quite build discipline due to variety of reasons. I have settled for being a certified
-                            listener.
-                        </dd>
-                        <dt>I am interested in time travel, what should I do?</dt>
-                        <dd>
-                            Meet me at
-                            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">28.06.42.12</a>, last
-                            Thursday.
-                        </dd>
-                        <dt>Does invention of Microwave prove the existence of God?</dt>
-                        <dd>Yes, I think so. Reheating my Ramen was indeed a spiritual experience.</dd>
-
-                        <dd>Warrant canary.</dd>
-                    </dl>
-                </section>
-
-                <!-- CONTACT SECTION -->
-                <section id="contact" class="tab-content">
-                    <p>
-                        For queries, creative insults, or personalised death threats, write your letters to <span class="email-text">sudo[at]prismo[dot]net</span>.
-                    </p>
-                    <p>If emails don't get through, try smoke signals or sending pigeons, ask them to fly east.</p>
-                </section>
-            </main>
-        </div>
-
-        <footer>
-            <p>Copyleft <span class="copyleft">&copy;</span> <span id="year-display">MMXXVI</span> Floydimus.</p>
-            <p>Best viewed <i>without</i> Internet Explorer.</p>
-        </footer>
-
-        <script>
-            function updateUnix() {
-                const unixEl = document.getElementById("unix-display");
-                if (unixEl) {
-                    unixEl.innerText = Math.floor(Date.now() / 1000);
-                }
-            }
-
-            function showTab(tabId) {
-                document.querySelectorAll(".tab-content").forEach((el) => el.classList.remove("active"));
-                document.querySelectorAll("#main-nav a").forEach((el) => el.classList.remove("active"));
-
-                const target = document.getElementById(tabId);
-                if (target) target.classList.add("active");
-
-                const mainLink = document.getElementById("nav-" + tabId);
-                if (mainLink) {
-                    mainLink.classList.add("active");
-                } else if (tabId.startsWith("host-project") || tabId === "rhythm-stats") {
-                    document.getElementById("nav-lab").classList.add("active");
-                }
-
-                window.scrollTo(0, 0);
-            }
-
-            // Initialise ticker and show about tab
-            window.onload = function () {
-                updateUnix();
-                setInterval(updateUnix, 1000);
-            };
-        </script>
-
-        <script>
-            (function () {
-                // Convert integer (1..3999) to Roman numerals
-                function toRoman(num) {
-                    if (typeof num !== "number" || num <= 0 || num >= 4000) return "" + num;
-                    const romans = [
-                        [1000, "M"],
-                        [900, "CM"],
-                        [500, "D"],
-                        [400, "CD"],
-                        [100, "C"],
-                        [90, "XC"],
-                        [50, "L"],
-                        [40, "XL"],
-                        [10, "X"],
-                        [9, "IX"],
-                        [5, "V"],
-                        [4, "IV"],
-                        [1, "I"],
-                    ];
-                    let result = "";
-                    for (let i = 0; i < romans.length; i++) {
-                        const [value, letter] = romans[i];
-                        while (num >= value) {
-                            result += letter;
-                            num -= value;
-                        }
-                    }
-                    return result;
-                }
-
-                function updateYear() {
-                    const el = document.getElementById("year-display");
-                    if (!el) return;
-                    const year = new Date().getFullYear();
-                    el.textContent = toRoman(year);
-                }
-
-                function msUntilNextJanFirst() {
-                    const now = new Date();
-                    const nextYear = now.getFullYear() + 1;
-                    const nextJan = new Date(nextYear, 0, 1, 0, 0, 0, 0);
-                    return nextJan.getTime() - now.getTime();
-                }
-
-                // Schedule update on load and then on each Jan 1st 00:00 local time
-                updateYear();
-                (function scheduleNext() {
-                    const ms = msUntilNextJanFirst();
-                    // Protect against extremely large or negative values
-                    const safeMs = typeof ms === "number" && ms > 0 ? ms : 0;
-                    setTimeout(function () {
-                        updateYear();
-                        // after firing, schedule again for the following year
-                        scheduleNext();
-                    }, safeMs);
-                })();
-            })();
-        </script>
-    </body>
+          }
+          return result;
+        }
+
+        function updateYear() {
+          const el = document.getElementById("year-display");
+          if (!el) return;
+          const year = new Date().getFullYear();
+          el.textContent = toRoman(year);
+        }
+
+        function msUntilNextJanFirst() {
+          const now = new Date();
+          const nextYear = now.getFullYear() + 1;
+          const nextJan = new Date(nextYear, 0, 1, 0, 0, 0, 0);
+          return nextJan.getTime() - now.getTime();
+        }
+        // Schedule update on load and then on each Jan 1st 00:00 local time
+        updateYear();
+        (function scheduleNext() {
+          const ms = msUntilNextJanFirst();
+          // Protect against extremely large or negative values
+          const safeMs = typeof ms === "number" && ms > 0 ? ms : 0;
+          setTimeout(function() {
+            updateYear();
+            // after firing, schedule again for the following year
+            scheduleNext();
+          }, safeMs);
+        })();
+      })();
+      undefined
+    </script>undefined
+  </body>undefined
 </html>
