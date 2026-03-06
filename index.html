@@ -887,6 +887,11 @@
       function handleDeepLink() {
         const hash = window.location.hash.substring(1);
         if (hash) {
+          const target = document.getElementById(hash);
+          if (!target) {
+            window.location.replace('/404.html');
+            return;
+          }
           showTab(hash);
         }
         // Force the scroll to the absolute top of the viewport
