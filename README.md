@@ -21,9 +21,9 @@ A lunar Monochrome, inspired by the stark clarity of the lunar landscapes, Prism
 *   ​**Mature Visuals:** Sophisticated paper-white and monospace palette signalling professional rigour.
     
 
-​Licence
+​License
 --------
-[![Licence: GPL-3.0](https://img.shields.io/badge/Licence-GPL--3.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+[![License: GPL-3.0](https://img.shields.io/badge/Licence-GPL--3.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 
 Copyright (C) 2026 Floydimus.
 
